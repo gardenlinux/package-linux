@@ -1,0 +1,48 @@
+--- a/debian/patches/features/all/security-perf-allow-further-restriction-of-perf_event_open.patch
++++ b/debian/patches/features/all/security-perf-allow-further-restriction-of-perf_event_open.patch
+@@ -25,7 +25,7 @@
+ @@ -1387,6 +1387,11 @@ int perf_cpu_time_max_percent_handler(st
+  int perf_event_max_stack_handler(struct ctl_table *table, int write,
+  		void *buffer, size_t *lenp, loff_t *ppos);
+-
++
+ +static inline bool perf_paranoid_any(void)
+ +{
+ +	return sysctl_perf_event_paranoid > 2;
+@@ -33,7 +33,7 @@
+ +
+  /* Access to perf_event_open(2) syscall. */
+  #define PERF_SECURITY_OPEN		0
+-
++
+ --- a/kernel/events/core.c
+ +++ b/kernel/events/core.c
+ @@ -415,8 +415,13 @@ static struct kmem_cache *perf_event_cac
+@@ -47,13 +47,13 @@
+ +#else
+  int sysctl_perf_event_paranoid __read_mostly = 2;
+ +#endif
+-
++
+  /* Minimum for 512 kiB + 1 user control page */
+  int sysctl_perf_event_mlock __read_mostly = 512 + (PAGE_SIZE / 1024); /* 'free' kiB per user */
+ @@ -12325,6 +12330,9 @@ SYSCALL_DEFINE5(perf_event_open,
+  	if (err)
+  		return err;
+-
++
+ +	if (perf_paranoid_any() && !capable(CAP_SYS_ADMIN))
+ +		return -EACCES;
+ +
+@@ -63,9 +63,9 @@
+ --- a/security/Kconfig
+ +++ b/security/Kconfig
+ @@ -19,6 +19,15 @@ config SECURITY_DMESG_RESTRICT
+-
++
+  	  If you are unsure how to answer this question, answer N.
+-
++
+ +config SECURITY_PERF_EVENTS_RESTRICT
+ +	bool "Restrict unprivileged use of performance events"
+ +	depends on PERF_EVENTS
