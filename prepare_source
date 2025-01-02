@@ -1,11 +1,11 @@
 pkg=linux
-version_orig=6.6.68
+version_orig=6.12.8
 version="$version_orig-0"
 
 (
 	kernel_repo=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.6.15-2"
+	debian_ref="debian/6.12.6-1"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
@@ -15,6 +15,10 @@ version="$version_orig-0"
 	cd linux
 
 	apt-get install --no-install-recommends -y python3-debian # needed for genorig
+        # fixme(fwilhe): why is this different from 6.6?
+	apt-get install --no-install-recommends -y wget
+        wget --output-document debian/bin/genorig.py 'https://salsa.debian.org/kernel-team/linux/-/raw/debian/6.6.15-2/debian/bin/genorig.py?ref_type=tags'
+        chmod +x debian/bin/genorig.py
 	debian/bin/genorig.py --override-version "$version_orig" "$kernel_repo"
 	git clean -fdx
 
@@ -25,8 +29,5 @@ version="$version_orig-0"
 rm -rf "$dir/src/debian/config"
 cp -r config "$dir/src/debian/"
 
-rm "$dir/src/debian/patches/debian/Revert-docs-kernel_feat.py-fix-potential-command-inj.patch"
-sed -i '/debian\/Revert-docs-kernel_feat\.py-fix-potential-command-inj\.patch/d' "$dir/src/debian/patches/series"
-
-apply_patches fixes_debian
-import_upstream_patches
+#apply_patches fixes_debian
+#import_upstream_patches

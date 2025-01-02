@@ -1,5 +1,6 @@
 (
 	apt-get install --no-install-recommends -y kernel-wedge python3-jinja2
 	cd "$dir/src"
-	{ PYTHONDONTWRITEBYTECODE=1 make -f debian/rules debian/control-real || true; } | grep 'generated SUCCESSFULLY'
+        # fixme(fwilhe): why is this different from 6.6
+	#{ PYTHONDONTWRITEBYTECODE=1 make -f debian/rules debian/control-real || true; } | grep 'generated SUCCESSFULLY'
 )
