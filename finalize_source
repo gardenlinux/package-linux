@@ -1,6 +1,9 @@
+set -x
 (
-	apt-get install --no-install-recommends -y kernel-wedge python3-jinja2
+	apt-get install --no-install-recommends -y kernel-wedge python3-jinja2 python3-dacite
 	cd "$dir/src"
-        # fixme(fwilhe): why is this different from 6.6
-	#{ PYTHONDONTWRITEBYTECODE=1 make -f debian/rules debian/control-real || true; } | grep 'generated SUCCESSFULLY'
+	# fixme(fwilhe): why is this different from 6.6
+	{ PYTHONDONTWRITEBYTECODE=1 make -f debian/rules debian/control-real || true; } | grep 'generated SUCCESSFULLY'
+	#make -f debian/rules debian/rules.gen
+	#debian/bin/gencontrol.py
 )
