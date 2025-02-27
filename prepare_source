@@ -1,5 +1,5 @@
 pkg=linux
-version_orig=6.12.16
+version_orig=6.12.17
 version="$version_orig-1"
 
 (
