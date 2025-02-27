@@ -15,7 +15,7 @@ def get_latest_kernel_version():
             r["version"]
             for r in releases
             if r["version"].startswith(current_lts)
-# not officially lts yet            and r["moniker"] == "longterm"
+            and r["moniker"] == "longterm"
             and r["iseol"] == False
         ]
         assert len(latest_current_lts) == 1
