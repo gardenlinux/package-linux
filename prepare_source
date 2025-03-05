@@ -1,9 +1,5 @@
 pkg=linux
-<<<<<<< HEAD
-version_orig=6.6.75
-=======
 version_orig=6.6.80
->>>>>>> origin/maint-6.6
 version="$version_orig-0"
 
 (
