@@ -1,0 +1,183 @@
+diff --git a/tools/tracing/rtla/src/osnoise.c b/tools/tracing/rtla/src/osnoise.c
+index 699a83f538a8..245e9344932b 100644
+--- a/tools/tracing/rtla/src/osnoise.c
++++ b/tools/tracing/rtla/src/osnoise.c
+@@ -867,7 +867,7 @@ int osnoise_set_workload(struct osnoise_context *context, bool onoff)
+ 
+ 	retval = osnoise_options_set_option("OSNOISE_WORKLOAD", onoff);
+ 	if (retval < 0)
+-		return -2;
++		return -1;
+ 
+ 	context->opt_workload = onoff;
+ 
+diff --git a/tools/tracing/rtla/src/timerlat_hist.c b/tools/tracing/rtla/src/timerlat_hist.c
+index a985e5795482..667f12f2d67f 100644
+--- a/tools/tracing/rtla/src/timerlat_hist.c
++++ b/tools/tracing/rtla/src/timerlat_hist.c
+@@ -900,15 +900,12 @@ timerlat_hist_apply_config(struct osnoise_tool *tool, struct timerlat_hist_param
+ 		auto_house_keeping(&params->monitored_cpus);
+ 	}
+ 
+-	/*
+-	* Set workload according to type of thread if the kernel supports it.
+-	* On kernels without support, user threads will have already failed
+-	* on missing timerlat_fd, and kernel threads do not need it.
+-	*/
+-	retval = osnoise_set_workload(tool->context, params->kernel_workload);
+-	if (retval < -1) {
+-		err_msg("Failed to set OSNOISE_WORKLOAD option\n");
+-		goto out_err;
++	if (params->user_hist) {
++		retval = osnoise_set_workload(tool->context, 0);
++		if (retval) {
++			err_msg("Failed to set OSNOISE_WORKLOAD option\n");
++			goto out_err;
++		}
+ 	}
+ 
+ 	return 0;
+@@ -949,20 +946,9 @@ static struct osnoise_tool
+ }
+ 
+ static int stop_tracing;
+-static struct trace_instance *hist_inst = NULL;
+ static void stop_hist(int sig)
+ {
+-	if (stop_tracing) {
+-		/*
+-		 * Stop requested twice in a row; abort event processing and
+-		 * exit immediately
+-		 */
+-		tracefs_iterate_stop(hist_inst->inst);
+-		return;
+-	}
+ 	stop_tracing = 1;
+-	if (hist_inst)
+-		trace_instance_stop(hist_inst);
+ }
+ 
+ /*
+@@ -1008,12 +994,6 @@ int timerlat_hist_main(int argc, char *argv[])
+ 	}
+ 
+ 	trace = &tool->trace;
+-	/*
+-	 * Save trace instance into global variable so that SIGINT can stop
+-	 * the timerlat tracer.
+-	 * Otherwise, rtla could loop indefinitely when overloaded.
+-	 */
+-	hist_inst = trace;
+ 
+ 	retval = enable_timerlat(trace);
+ 	if (retval) {
+@@ -1146,7 +1126,7 @@ int timerlat_hist_main(int argc, char *argv[])
+ 
+ 	return_value = 0;
+ 
+-	if (trace_is_off(&tool->trace, &record->trace) && !stop_tracing) {
++	if (trace_is_off(&tool->trace, &record->trace)) {
+ 		printf("rtla timerlat hit stop tracing\n");
+ 
+ 		if (!params->no_aa)
+diff --git a/tools/tracing/rtla/src/timerlat_top.c b/tools/tracing/rtla/src/timerlat_top.c
+index 1fed4c8d8520..0915092057f8 100644
+--- a/tools/tracing/rtla/src/timerlat_top.c
++++ b/tools/tracing/rtla/src/timerlat_top.c
+@@ -679,15 +679,12 @@ timerlat_top_apply_config(struct osnoise_tool *top, struct timerlat_top_params *
+ 		auto_house_keeping(&params->monitored_cpus);
+ 	}
+ 
+-	/*
+-	* Set workload according to type of thread if the kernel supports it.
+-	* On kernels without support, user threads will have already failed
+-	* on missing timerlat_fd, and kernel threads do not need it.
+-	*/
+-	retval = osnoise_set_workload(top->context, params->kernel_workload);
+-	if (retval < -1) {
+-		err_msg("Failed to set OSNOISE_WORKLOAD option\n");
+-		goto out_err;
++	if (params->user_top) {
++		retval = osnoise_set_workload(top->context, 0);
++		if (retval) {
++			err_msg("Failed to set OSNOISE_WORKLOAD option\n");
++			goto out_err;
++		}
+ 	}
+ 
+ 	return 0;
+@@ -728,20 +725,9 @@ static struct osnoise_tool
+ }
+ 
+ static int stop_tracing;
+-static struct trace_instance *top_inst = NULL;
+ static void stop_top(int sig)
+ {
+-	if (stop_tracing) {
+-		/*
+-		 * Stop requested twice in a row; abort event processing and
+-		 * exit immediately
+-		 */
+-		tracefs_iterate_stop(top_inst->inst);
+-		return;
+-	}
+ 	stop_tracing = 1;
+-	if (top_inst)
+-		trace_instance_stop(top_inst);
+ }
+ 
+ /*
+@@ -788,13 +774,6 @@ int timerlat_top_main(int argc, char *argv[])
+ 	}
+ 
+ 	trace = &top->trace;
+-	/*
+-	* Save trace instance into global variable so that SIGINT can stop
+-	* the timerlat tracer.
+-	* Otherwise, rtla could loop indefinitely when overloaded.
+-	*/
+-	top_inst = trace;
+-
+ 
+ 	retval = enable_timerlat(trace);
+ 	if (retval) {
+@@ -943,7 +922,7 @@ int timerlat_top_main(int argc, char *argv[])
+ 
+ 	return_value = 0;
+ 
+-	if (trace_is_off(&top->trace, &record->trace) && !stop_tracing) {
++	if (trace_is_off(&top->trace, &record->trace)) {
+ 		printf("rtla timerlat hit stop tracing\n");
+ 
+ 		if (!params->no_aa)
+diff --git a/tools/tracing/rtla/src/trace.c b/tools/tracing/rtla/src/trace.c
+index 93e4032b2397..e1ba6d9f4265 100644
+--- a/tools/tracing/rtla/src/trace.c
++++ b/tools/tracing/rtla/src/trace.c
+@@ -196,14 +196,6 @@ int trace_instance_start(struct trace_instance *trace)
+ 	return tracefs_trace_on(trace->inst);
+ }
+ 
+-/*
+- * trace_instance_stop - stop tracing a given rtla instance
+- */
+-int trace_instance_stop(struct trace_instance *trace)
+-{
+-	return tracefs_trace_off(trace->inst);
+-}
+-
+ /*
+  * trace_events_free - free a list of trace events
+  */
+diff --git a/tools/tracing/rtla/src/trace.h b/tools/tracing/rtla/src/trace.h
+index 551a7cb81f63..2e9a89a25615 100644
+--- a/tools/tracing/rtla/src/trace.h
++++ b/tools/tracing/rtla/src/trace.h
+@@ -21,7 +21,6 @@ struct trace_instance {
+ 
+ int trace_instance_init(struct trace_instance *trace, char *tool_name);
+ int trace_instance_start(struct trace_instance *trace);
+-int trace_instance_stop(struct trace_instance *trace);
+ void trace_instance_destroy(struct trace_instance *trace);
+ 
+ struct trace_seq *get_trace_seq(void);
