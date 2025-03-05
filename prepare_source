@@ -15,7 +15,6 @@ version="$version_orig-0"
 	cd linux
 
 	apt-get install --no-install-recommends -y python3-debian gpgv # needed for genorig
-        apt-get remove --purge sqopv -y
 	debian/bin/genorig.py --override-version "$version_orig" "$kernel_repo"
 	git clean -fdx
 
