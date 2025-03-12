@@ -1,5 +1,9 @@
 pkg=linux
+<<<<<<< HEAD
 version_orig=6.6.80
+=======
+version_orig=6.6.82
+>>>>>>> origin/maint-6.6
 version="$version_orig-0"
 
 (
@@ -15,6 +19,10 @@ version="$version_orig-0"
 	cd linux
 
 	apt-get install --no-install-recommends -y python3-debian gpgv # needed for genorig
+<<<<<<< HEAD
+=======
+        apt-get remove --purge sqopv -y
+>>>>>>> origin/maint-6.6
 	debian/bin/genorig.py --override-version "$version_orig" "$kernel_repo"
 	git clean -fdx
 
