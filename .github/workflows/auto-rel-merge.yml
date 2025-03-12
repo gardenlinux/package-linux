@@ -57,9 +57,11 @@ jobs:
             TEMP_BRANCH="auto-merge-${maint_branch}-to-${branch}-${commit_hash}"
             git checkout -b "$TEMP_BRANCH" origin/$branch
 
-            # Attempt to merge
-            if git merge origin/$maint_branch --no-ff -m "Automated merge from $maint_branch ($commit_hash)"; then
-              echo "Merge successful, pushing changes..."
+            # Attempt to merge using --squash
+            if git merge --squash origin/$maint_branch; then
+              echo "Merge successful, creating a squash commit..."
+              git commit -m "Squashed merge from $maint_branch ($commit_hash)"
+              echo "Pushing changes..."
               git push origin "$TEMP_BRANCH:$branch"
             else
               echo "Merge conflict detected! Creating a pull request..."
