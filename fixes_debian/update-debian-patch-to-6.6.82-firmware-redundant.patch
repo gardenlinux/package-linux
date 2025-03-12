@@ -1,0 +1,48 @@
+diff -Naur a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch
+--- a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch	2025-03-12 10:24:14.029267632 +0000
++++ b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch	2025-03-12 10:37:29.181300553 +0000
+@@ -11,7 +11,7 @@
+ 
+ --- a/arch/x86/kernel/cpu/microcode/amd.c
+ +++ b/arch/x86/kernel/cpu/microcode/amd.c
+-@@ -912,10 +912,8 @@
++@@ -1144,10 +1144,8 @@
+  	if (c->x86 >= 0x15)
+  		snprintf(fw_name, sizeof(fw_name), "amd-ucode/microcode_amd_fam%.2xh.bin", c->x86);
+  
+@@ -22,7 +22,7 @@
+ -	}
+  
+  	ret = UCODE_ERROR;
+- 	if (!verify_container(fw->data, fw->size, false))
++ 	if (!verify_container(fw->data, fw->size))
+ --- a/drivers/atm/fore200e.c
+ +++ b/drivers/atm/fore200e.c
+ @@ -2398,10 +2398,9 @@
+@@ -1090,7 +1090,7 @@
+  	if (bp->mips_firmware->size < sizeof(*mips_fw) ||
+ --- a/drivers/net/ethernet/broadcom/tg3.c
+ +++ b/drivers/net/ethernet/broadcom/tg3.c
+-@@ -11412,11 +11412,8 @@
++@@ -11413,11 +11413,8 @@
+  {
+  	const struct tg3_firmware_hdr *fw_hdr;
+  
+@@ -1765,7 +1765,7 @@
+  	}
+ --- a/drivers/scsi/qla2xxx/qla_init.c
+ +++ b/drivers/scsi/qla2xxx/qla_init.c
+-@@ -8610,10 +8610,6 @@
++@@ -8620,10 +8620,6 @@
+  	/* Load firmware blob. */
+  	blob = qla2x00_request_firmware(vha);
+  	if (!blob) {
+@@ -1776,7 +1776,7 @@
+  		return QLA_FUNCTION_FAILED;
+  	}
+  
+-@@ -8716,9 +8712,6 @@
++@@ -8726,9 +8722,6 @@
+  
+  	blob = qla2x00_request_firmware(vha);
+  	if (!blob) {
