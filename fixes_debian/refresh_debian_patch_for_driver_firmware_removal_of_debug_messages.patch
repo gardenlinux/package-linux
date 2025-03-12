@@ -1,17 +1,21 @@
 diff -Naur a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch
---- a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch	2025-02-12 14:35:47.544302520 +0000
-+++ b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch	2025-02-12 14:45:05.760093293 +0000
+--- a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch	2025-03-12 11:32:36.619844623 +0000
++++ b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch	2025-03-12 11:36:34.020872979 +0000
 @@ -11,7 +11,7 @@
  
  --- a/arch/x86/kernel/cpu/microcode/amd.c
  +++ b/arch/x86/kernel/cpu/microcode/amd.c
 -@@ -912,10 +912,8 @@ static enum ucode_state request_microcod
-+@@ -912,10 +912,8 @@
++@@ -1144,10 +1144,8 @@
   	if (c->x86 >= 0x15)
   		snprintf(fw_name, sizeof(fw_name), "amd-ucode/microcode_amd_fam%.2xh.bin", c->x86);
   
-@@ -25,7 +25,7 @@
-  	if (!verify_container(fw->data, fw->size, false))
+@@ -22,10 +22,10 @@
+ -	}
+  
+  	ret = UCODE_ERROR;
+- 	if (!verify_container(fw->data, fw->size, false))
++ 	if (!verify_container(fw->data, fw->size))
  --- a/drivers/atm/fore200e.c
  +++ b/drivers/atm/fore200e.c
 -@@ -2398,10 +2398,9 @@ static int fore200e_load_and_start_fw(st
@@ -683,7 +687,7 @@ diff -Naur a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-fr
  --- a/drivers/net/ethernet/broadcom/tg3.c
  +++ b/drivers/net/ethernet/broadcom/tg3.c
 -@@ -11394,11 +11394,8 @@ static int tg3_request_firmware(struct t
-+@@ -11412,11 +11412,8 @@
++@@ -11413,11 +11413,8 @@
   {
   	const struct tg3_firmware_hdr *fw_hdr;
   
@@ -1160,7 +1164,7 @@ diff -Naur a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-fr
  --- a/drivers/scsi/qla2xxx/qla_init.c
  +++ b/drivers/scsi/qla2xxx/qla_init.c
 -@@ -8560,10 +8560,6 @@ qla2x00_load_risc(scsi_qla_host_t *vha,
-+@@ -8610,10 +8610,6 @@
++@@ -8620,10 +8620,6 @@
   	/* Load firmware blob. */
   	blob = qla2x00_request_firmware(vha);
   	if (!blob) {
@@ -1169,7 +1173,7 @@ diff -Naur a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-fr
   	}
   
 -@@ -8666,9 +8662,6 @@ qla24xx_load_risc_blob(scsi_qla_host_t *
-+@@ -8716,9 +8712,6 @@
++@@ -8726,9 +8722,6 @@
   
   	blob = qla2x00_request_firmware(vha);
   	if (!blob) {
