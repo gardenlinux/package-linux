@@ -26,6 +26,14 @@ In some cases, we need to make changes to those to get a working build.
 
 ## Backports 
 
+| branch | description |
+| ------------- | -------------- |
+| main | no backport, builds for nightly |
+| maint-6.6 | shared maintanance of source code only for 1443 and 1592 | 
+| rel-1443 | backport for 1443, merge code from maint-6.6 | 
+| rel-1592 | backport for 1592, merge code from maint-6.6 |
+
+
 The main branch of this repository always contains the latest kernel available in Garden Linux, and in the nightly builds.
 Typically, this will be the most recent long term support (LTS) line from kernel.org, but from time to time it might also be a 'stable' kernel that will become the next LTS.
 
@@ -37,6 +45,17 @@ Backport releases need to branch off from the respective `maint-<MAJOR.MINOR>` b
 
 Branches containing the `.container` file must be named according to the `rel-MAJOR` naming scheme (e.g. rel-1443).
 
+
+## How to do a backport from maint-X.Y branch
+
+```
+git checkout rel-MAJOR
+git merge --squash origin/maint-x.y 
+# resolve merge conflicts
+git commit
+git push
+# Pipeline builds new rel-MAJOR version
+```
 
 
 > [!Tip]
