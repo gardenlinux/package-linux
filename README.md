@@ -77,7 +77,7 @@ The automation creates a PR if a new patchlevel is available.
 > [See this issue for more information if you are interested](https://github.com/gardenlinux/package-linux/issues/47).
 
 
-> [!Hint]
+> [!Note]
 > This is done via the [update-kernel.py](https://github.com/gardenlinux/package-linux/blob/main/update-kernel.py) tool
 
 
