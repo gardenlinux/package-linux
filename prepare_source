@@ -3,7 +3,6 @@ version_orig=6.12.21
 version="$version_orig-1"
 
 (
-	kernel_repo=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
 	debian_ref="debian/6.12.13-1"
 
