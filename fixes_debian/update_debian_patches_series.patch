@@ -1,0 +1,10 @@
+--- a/debian/patches/series	2025-04-10 10:30:48.989434849 +0000
++++ b/debian/patches/series	2025-04-10 10:38:53.199756950 +0000
+@@ -73,7 +73,6 @@
+ bugfix/all/disable-some-marvell-phys.patch
+ bugfix/all/fs-add-module_softdep-declarations-for-hard-coded-cr.patch
+ bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
+-bugfix/all/nfsd-fix-legacy-client-tracking-initialization.patch
+ 
+ # Miscellaneous features
+ 
