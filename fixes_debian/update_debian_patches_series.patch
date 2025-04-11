@@ -1,10 +1,10 @@
---- a/debian/patches/series	2025-04-10 10:30:48.989434849 +0000
-+++ b/debian/patches/series	2025-04-10 10:38:53.199756950 +0000
+--- a/debian/patches/series	2025-04-11 08:41:41.390864629 +0000
++++ b/debian/patches/series	2025-04-11 09:20:28.046881581 +0000
 @@ -73,7 +73,6 @@
  bugfix/all/disable-some-marvell-phys.patch
  bugfix/all/fs-add-module_softdep-declarations-for-hard-coded-cr.patch
  bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
--bugfix/all/nfsd-fix-legacy-client-tracking-initialization.patch
+-bugfix/all/ALSA-hda-realtek-Fix-built-in-mic-on-another-ASUS-Vi.patch
+ bugfix/all/md-fix-mddev-uaf-while-iterating-all_mddevs-list.patch
  
  # Miscellaneous features
- 
