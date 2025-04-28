@@ -1,0 +1,9 @@
+--- debian/rules.d/certs/Makefile	2025-04-28 10:31:44.983390103 +0200
++++ debian/rules.d/certs/Makefile	2025-04-28 10:34:06.421580152 +0200
+@@ -3,5 +3,5 @@
+ 
+ include $(top_rulesdir)/Makefile.inc
+ 
+-CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
++CPPFLAGS += -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -I$(top_srcdir)/tools
+ extract-cert: LDLIBS += -lcrypto
