@@ -1,5 +1,6 @@
---- debian/rules.d/certs/Makefile	2025-04-28 10:31:44.983390103 +0200
-+++ debian/rules.d/certs/Makefile	2025-04-28 10:34:06.421580152 +0200
+diff --color -Naur a/debian/rules.d/certs/Makefile b/debian/rules.d/certs/Makefile
+--- a/debian/rules.d/certs/Makefile	2025-04-28 10:31:44.983390103 +0200
++++ b/debian/rules.d/certs/Makefile	2025-04-28 10:34:06.421580152 +0200
 @@ -3,5 +3,5 @@
  
  include $(top_rulesdir)/Makefile.inc
