@@ -87,3 +87,5 @@ fpga-ofs-dev-6.6-lts-patches/0086-.github-workflows-build-kernel-packages.patch
 fpga-ofs-dev-6.6-lts-patches/0087-.github-workflows-scan-kernel-with-Coverity.patch
 fpga-ofs-dev-6.6-lts-patches/0088-fpga-dfl-cxl-cache-depend-on-DRM.patch
 intel-dfl-fixes/001-fix-config-dependency-intel-s10hssi.patch
+CVE-2024-42107.patch
+CVE-2024-56647.patch
