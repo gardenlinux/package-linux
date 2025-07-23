@@ -1,6 +1,6 @@
 pkg=linux
 version_orig=6.12.39
-version="$version_orig-1"
+version="$version_orig-2"
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
