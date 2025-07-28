@@ -35,7 +35,7 @@ jobs:
             git config --global user.email "gardenlinux@users.noreply.github.com"
             git commit -am 'Update kernel ${{ steps.update.outputs.has-update }}'
             git push --set-upstream origin update-kernel-${{ matrix.branch }}
-            UPDATE_PR_LINK=$(gh pr create --base ${{ matrix.branch }} --head update-kernel-${{ matrix.branch }} --title 'Update kernel ${{ steps.update.outputs.has-update }}' --body "automated update" --reviewer fwilhe)
+            UPDATE_PR_LINK=$(gh pr create --base ${{ matrix.branch }} --head update-kernel-${{ matrix.branch }} --title 'Update kernel ${{ steps.update.outputs.has-update }}' --body "automated update")
             # We have to trigger our own workflow run because github does not do that when the pr is created by automation
             # This also means that we don't have the nice UI integration of test runs, so we add a comment to the workflow url for tracing purposes
             gh workflow run "build.yml" --ref "update-kernel-${{ matrix.branch }}"
