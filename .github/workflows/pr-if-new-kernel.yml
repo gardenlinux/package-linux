@@ -34,6 +34,7 @@ jobs:
             git config --global user.name "Garden Linux Builder"
             git config --global user.email "gardenlinux@users.noreply.github.com"
             git commit -am 'Update kernel ${{ steps.update.outputs.has-update }}'
+            git pull --rebase origin update-kernel-${{ matrix.branch }} || true
             git push --set-upstream origin update-kernel-${{ matrix.branch }}
             UPDATE_PR_LINK=$(gh pr create --base ${{ matrix.branch }} --head update-kernel-${{ matrix.branch }} --title 'Update kernel ${{ steps.update.outputs.has-update }}' --body "automated update")
             # We have to trigger our own workflow run because github does not do that when the pr is created by automation
