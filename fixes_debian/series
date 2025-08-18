@@ -5,3 +5,5 @@ add-symsearch-rule-to-debian-makefiles.patch
 fix-security-perf-allow-further-restriction-of-perf_event_open.patch
 refresh_debian_patch_for_driver_firmware_removal_of_debug_messages.patch
 fix-makefile-extract-cert.patch
+fix-sh-boot-do-not-use-hyphen-in-exported-variable-name.patch
+fix-series-sh-boot-do-not-use-hyphen-in-exported-variable-name.patch
