@@ -26,3 +26,7 @@ breaks = [
   'fwupdate (<< 12-7)',
   'wireless-regdb (<< 2019.06.03-1~)',
 ]
+
+[[debianrelease]]
+name_regex = 'gardenlinux'
+revision_regex = '\d+gl(\d+)?(~dev)?'
