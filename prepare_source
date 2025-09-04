@@ -4,7 +4,7 @@ version="$version_orig-3"
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.12.41-1"
+	debian_ref="debian/6.12.43-1"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
@@ -26,5 +26,5 @@ version="$version_orig-3"
 rm -rf "$dir/src/debian/config"
 cp -r config "$dir/src/debian/"
 
-apply_patches fixes_debian
+# apply_patches fixes_debian
 import_upstream_patches
