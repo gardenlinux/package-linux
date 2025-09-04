@@ -1,0 +1,14 @@
+--- a/debian/patches/series	2025-09-04 09:05:09.559779105 +0200
++++ b/debian/patches/series	2025-09-04 10:17:03.940954460 +0200
+@@ -75,9 +75,9 @@
+ bugfix/all/disable-some-marvell-phys.patch
+ bugfix/all/fs-add-module_softdep-declarations-for-hard-coded-cr.patch
+ bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
+-bugfix/all/ext4-don-t-try-to-clear-the-orphan_present-feature-b.patch
++# bugfix/all/ext4-don-t-try-to-clear-the-orphan_present-feature-b.patch # already in 6.12.44
+ bugfix/all/proc-fix-missing-pde_set_flags-for-net-proc-files.patch
+-bugfix/all/alloc_fdtable-change-calling-conventions.patch
++# bugfix/all/alloc_fdtable-change-calling-conventions.patch # already in 6.12.44
+ bugfix/all/net-ipv4-fix-regression-in-local-broadcast-routes.patch
+ 
+ # Miscellaneous features
