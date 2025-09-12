@@ -1,6 +1,6 @@
 pkg=linux
-version_orig=6.6.103
-version="$version_orig-0"
+version_orig=6.6.106
+version="$version_orig-1"
 
 (
 	kernel_repo=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
