@@ -28,3 +28,6 @@ cp -r config "$dir/src/debian/"
 
 apply_patches fixes_debian
 import_upstream_patches
+
+# Backporting for the 1877 release.
+version_suffix=gl0~bp1877
