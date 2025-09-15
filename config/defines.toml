@@ -29,4 +29,4 @@ breaks = [
 
 [[debianrelease]]
 name_regex = 'gardenlinux'
-revision_regex = '\d+(\.\d+)*-\d+gl(\d+)?(~bp\d+)?(~dev)?'
+revision_regex = '\d+gl(\d+)?(~bp\d+)?(~dev)?'
