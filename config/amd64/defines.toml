@@ -32,20 +32,6 @@ is_quick = true
 hardware = 'x86-64 cloud'
 hardware_long = 'cloud platforms including Amazon EC2, Microsoft Azure, and Google Compute Engine'
 
-[[flavour]]
-name = 'firecracker-amd64'
-[flavour.build]
-config = [
- 'config.cloud',
- 'amd64/config.cloud-amd64',
- 'config.gardenlinux',
- 'config.firecracker',
- 'amd64/config.firecracker'
-]
-[flavour.description]
-hardware = 'x86-64 firecracker'
-hardware_long = 'firecracker micro vm (https://firecracker-microvm.github.io/)'
-
 [[featureset]]
 name = 'none'
 
