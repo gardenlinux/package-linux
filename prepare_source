@@ -27,3 +27,4 @@ rm -rf "$dir/src/debian/config"
 cp -r config "$dir/src/debian/"
 
 apply_patches fixes_debian
+version_suffix=gl0
