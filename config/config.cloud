@@ -1154,7 +1154,11 @@ CONFIG_HYPERV_STORAGE=m
 ##
 ## file: drivers/scsi/device_handler/Kconfig
 ##
-# CONFIG_SCSI_DH is not set
+CONFIG_SCSI_DH=y
+CONFIG_SCSI_DH_RDAC=m
+CONFIG_SCSI_DH_HP_SW=m
+CONFIG_SCSI_DH_EMC=m
+CONFIG_SCSI_DH_ALUA=m
 
 ##
 ## file: drivers/scsi/esas2r/Kconfig
