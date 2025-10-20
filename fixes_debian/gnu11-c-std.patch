@@ -9,3 +9,14 @@
  CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS) \
  	-I$(top_srcdir)/$(OUTDIR) \
  	-I$(top_srcdir)/debian/build/build-tools/$(OUTDIR) \
+--- a/debian/rules.real	2025-10-20 14:02:29.849384711 +0200
++++ b/debian/rules.real	2025-10-20 16:55:51.906323116 +0200
+@@ -41,7 +41,7 @@
+ setup_env += KBUILD_VERBOSE=$(if $(filter terse,$(DEB_BUILD_OPTIONS)),0,1)
+ 
+ # XXX: All the tools leak flags between host and build all the time, just don't care.  See #1050991.
+-MAKE_CLEAN = $(setup_env) $(MAKE) KCFLAGS=-fdebug-prefix-map=$(CURDIR)/= KBUILD_HOSTCFLAGS='' HOSTCFLAGS='' KBUILD_HOSTLDFLAGS=''
++MAKE_CLEAN = $(setup_env) $(MAKE) KCFLAGS=-fdebug-prefix-map=$(CURDIR)/= KBUILD_HOSTCFLAGS='' HOSTCFLAGS='' KBUILD_HOSTLDFLAGS='' -std=gnu11
+ MAKE_SELF := $(MAKE) -f debian/rules.real $(MAKEOVERRIDES)
+ MAKEOVERRIDES =
+ 
