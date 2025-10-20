@@ -1,0 +1,11 @@
+--- a/debian/rules.d/Makefile.inc	2025-10-20 14:02:29.839019864 +0200
++++ b/debian/rules.d/Makefile.inc	2025-10-20 14:56:53.299032533 +0200
+@@ -8,7 +8,7 @@
+ CC = $(CROSS_COMPILE)gcc
+ CXX = $(CROSS_COMPILE)g++
+ PKG_CONFIG = $(CROSS_COMPILE)pkg-config
+-CFLAGS := $(shell dpkg-buildflags --get CFLAGS) -Wall
++CFLAGS := $(shell dpkg-buildflags --get CFLAGS) -Wall -std=gnu11
+ CPPFLAGS := $(shell dpkg-buildflags --get CPPFLAGS) \
+ 	-I$(top_srcdir)/$(OUTDIR) \
+ 	-I$(top_srcdir)/debian/build/build-tools/$(OUTDIR) \

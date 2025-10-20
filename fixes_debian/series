@@ -7,3 +7,4 @@ refresh_debian_patch_for_driver_firmware_removal_of_debug_messages.patch
 fix-makefile-extract-cert.patch
 fix-sh-boot-do-not-use-hyphen-in-exported-variable-name.patch
 fix-series-sh-boot-do-not-use-hyphen-in-exported-variable-name.patch
+gnu11-c-std.patch
