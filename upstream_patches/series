@@ -89,3 +89,4 @@ fpga-ofs-dev-6.6-lts-patches/0088-fpga-dfl-cxl-cache-depend-on-DRM.patch
 intel-dfl-fixes/001-fix-config-dependency-intel-s10hssi.patch
 CVE-2024-42107.patch
 CVE-2024-56647.patch
+10f94d8fcc0880c93d7697184fe199022792a61c.patch
