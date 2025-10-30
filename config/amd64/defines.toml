@@ -6,7 +6,6 @@ config = [
  'amd64/config',
  'amd64/config.mlx',
  'config.gardenlinux',
- 'config.ima',
  'config.tdx'
 ]
 [flavour.defs]
@@ -23,8 +22,7 @@ name = 'cloud-amd64'
 config = [
  'config.cloud',
  'amd64/config.cloud-amd64',
- 'config.gardenlinux',
- 'config.ima'
+ 'config.gardenlinux'
 ]
 [flavour.defs]
 is_quick = true
