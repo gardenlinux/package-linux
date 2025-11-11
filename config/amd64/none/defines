@@ -11,7 +11,6 @@ configs:
  config.cloud
  amd64/config.cloud-amd64
  config.gardenlinux
- config.ima
  config.dfl
 
 [firecracker-amd64_build]

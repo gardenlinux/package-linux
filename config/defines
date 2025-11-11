@@ -18,5 +18,4 @@ configs:
  config
  config.gardenlinux
  config.tdx
- config.ima
  config.dfl
