@@ -16,7 +16,6 @@ configs:
  config.cloud
  arm64/config.cloud-arm64
  config.gardenlinux
- config.ima
  config.dfl
 
 [firecracker-arm64_image]
