@@ -6,7 +6,6 @@ config = [
  'arm64/config',
  'arm64/config.gardenlinux',
  'config.gardenlinux',
- 'config.ima',
  'config.tdx',
  'arm64/config.mlxbf'
 ]
@@ -24,8 +23,7 @@ config = [
  'arm64/config.gardenlinux',
  'config.cloud',
  'arm64/config.cloud-arm64',
- 'config.gardenlinux',
- 'config.ima'
+ 'config.gardenlinux'
 ]
 [flavour.defs]
 is_quick = true
