@@ -1329,7 +1329,10 @@ CONFIG_FB_HYPERV=m
 ##
 ## file: drivers/virt/Kconfig
 ##
-# CONFIG_VIRT_DRIVERS is not set
+CONFIG_VIRT_DRIVERS=y
+CONFIG_SEV_GUEST=m
+CONFIG_EFI_SECRET=m
+CONFIG_NITRO_ENCLAVES=m
 
 ##
 ## file: drivers/w1/Kconfig
