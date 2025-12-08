@@ -1,0 +1,119 @@
+diff -Naur a/debian/patches/CVE-2025-22121.patch b/debian/patches/CVE-2025-22121.patch
+--- a/debian/patches/CVE-2025-22121.patch	2025-12-08 12:14:44.249872396 +0000
++++ b/debian/patches/CVE-2025-22121.patch	2025-12-08 12:28:06.879762196 +0000
+@@ -1,8 +1,6 @@
+-diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+-index 563cd0726424..78b9dba90922 100644
+ --- a/fs/ext4/inode.c
+ +++ b/fs/ext4/inode.c
+-@@ -4728,6 +4728,11 @@ static inline int ext4_iget_extra_inode(struct inode *inode,
++@@ -4728,6 +4728,11 @@
+  	    *magic == cpu_to_le32(EXT4_XATTR_MAGIC)) {
+  		int err;
+
+@@ -14,11 +12,9 @@
+  		ext4_set_inode_state(inode, EXT4_STATE_XATTR);
+  		err = ext4_find_inline_data_nolock(inode);
+  		if (!err && ext4_has_inline_data(inode))
+-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+-index 66933e55efb3..2b42ad6b545e 100644
+ --- a/fs/ext4/xattr.c
+ +++ b/fs/ext4/xattr.c
+-@@ -312,7 +312,7 @@ __ext4_xattr_check_block(struct inode *inode, struct buffer_head *bh,
++@@ -312,7 +312,7 @@
+  	__ext4_xattr_check_block((inode), (bh),  __func__, __LINE__)
+
+
+@@ -27,7 +23,7 @@
+  __xattr_check_inode(struct inode *inode, struct ext4_xattr_ibody_header *header,
+  			 void *end, const char *function, unsigned int line)
+  {
+-@@ -320,9 +320,6 @@ __xattr_check_inode(struct inode *inode, struct ext4_xattr_ibody_header *header,
++@@ -320,9 +320,6 @@
+  			    function, line);
+  }
+
+@@ -37,7 +33,7 @@
+  static int
+  xattr_find_entry(struct inode *inode, struct ext4_xattr_entry **pentry,
+  		 void *end, int name_index, const char *name, int sorted)
+-@@ -653,10 +650,7 @@ ext4_xattr_ibody_get(struct inode *inode, int name_index, const char *name,
++@@ -653,10 +650,7 @@
+  		return error;
+  	raw_inode = ext4_raw_inode(&iloc);
+  	header = IHDR(inode, raw_inode);
+@@ -49,7 +45,7 @@
+  	entry = IFIRST(header);
+  	error = xattr_find_entry(inode, &entry, end, name_index, name, 0);
+  	if (error)
+-@@ -787,7 +781,6 @@ ext4_xattr_ibody_list(struct dentry *dentry, char *buffer, size_t buffer_size)
++@@ -787,7 +781,6 @@
+  	struct ext4_xattr_ibody_header *header;
+  	struct ext4_inode *raw_inode;
+  	struct ext4_iloc iloc;
+@@ -57,7 +53,7 @@
+  	int error;
+
+  	if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
+-@@ -797,14 +790,9 @@ ext4_xattr_ibody_list(struct dentry *dentry, char *buffer, size_t buffer_size)
++@@ -797,14 +790,9 @@
+  		return error;
+  	raw_inode = ext4_raw_inode(&iloc);
+  	header = IHDR(inode, raw_inode);
+@@ -72,7 +68,7 @@
+  	brelse(iloc.bh);
+  	return error;
+  }
+-@@ -872,7 +860,6 @@ int ext4_get_inode_usage(struct inode *inode, qsize_t *usage)
++@@ -872,7 +860,6 @@
+  	struct ext4_xattr_ibody_header *header;
+  	struct ext4_xattr_entry *entry;
+  	qsize_t ea_inode_refs = 0;
+@@ -80,7 +76,7 @@
+  	int ret;
+
+  	lockdep_assert_held_read(&EXT4_I(inode)->xattr_sem);
+-@@ -883,11 +870,6 @@ int ext4_get_inode_usage(struct inode *inode, qsize_t *usage)
++@@ -883,11 +870,6 @@
+  			goto out;
+  		raw_inode = ext4_raw_inode(&iloc);
+  		header = IHDR(inode, raw_inode);
+@@ -92,7 +88,7 @@
+  		for (entry = IFIRST(header); !IS_LAST_ENTRY(entry);
+  		     entry = EXT4_XATTR_NEXT(entry))
+  			if (entry->e_value_inum)
+-@@ -2246,9 +2228,6 @@ int ext4_xattr_ibody_find(struct inode *inode, struct ext4_xattr_info *i,
++@@ -2246,9 +2228,6 @@
+  	is->s.here = is->s.first;
+  	is->s.end = (void *)raw_inode + EXT4_SB(inode->i_sb)->s_inode_size;
+  	if (ext4_test_inode_state(inode, EXT4_STATE_XATTR)) {
+@@ -102,7 +98,7 @@
+  		/* Find the named attribute. */
+  		error = xattr_find_entry(inode, &is->s.here, is->s.end,
+  					 i->name_index, i->name, 0);
+-@@ -2799,10 +2778,6 @@ int ext4_expand_extra_isize_ea(struct inode *inode, int new_extra_isize,
++@@ -2799,10 +2778,6 @@
+  	min_offs = end - base;
+  	total_ino = sizeof(struct ext4_xattr_ibody_header) + sizeof(u32);
+
+@@ -113,11 +109,9 @@
+  	ifree = ext4_xattr_free_space(base, &min_offs, base, &total_ino);
+  	if (ifree >= isize_diff)
+  		goto shift;
+-diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
+-index 824faf0b15a8..17c0d6bb230b 100644
+ --- a/fs/ext4/xattr.h
+ +++ b/fs/ext4/xattr.h
+-@@ -68,6 +68,9 @@ struct ext4_xattr_entry {
++@@ -68,6 +68,9 @@
+  		((void *)raw_inode + \
+  		EXT4_GOOD_OLD_INODE_SIZE + \
+  		EXT4_I(inode)->i_extra_isize))
+@@ -127,7 +121,7 @@
+  #define IFIRST(hdr) ((struct ext4_xattr_entry *)((hdr)+1))
+
+  /*
+-@@ -207,6 +210,13 @@ extern int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
++@@ -207,6 +210,13 @@
+  extern struct mb_cache *ext4_xattr_create_cache(void);
+  extern void ext4_xattr_destroy_cache(struct mb_cache *);
