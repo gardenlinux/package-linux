@@ -29,5 +29,10 @@ cp -r config "$dir/src/debian/"
 rm "$dir/src/debian/patches/debian/Revert-docs-kernel_feat.py-fix-potential-command-inj.patch"
 sed -i '/debian\/Revert-docs-kernel_feat\.py-fix-potential-command-inj\.patch/d' "$dir/src/debian/patches/series"
 
+rm -f "$dir/src/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch"
+sed -i '/bugfix\/all\/firmware-remove-redundant-log-messages-from-drivers\.patch/d' \
+  "$dir/src/debian/patches/series"
+
+
 apply_patches fixes_debian
 import_upstream_patches
