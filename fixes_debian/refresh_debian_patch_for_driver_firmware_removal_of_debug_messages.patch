@@ -1215,15 +1215,6 @@ diff -Naur a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-fr
   			rc = request_firmware(&fw_entry, fw_name[init_step], &priv->udev->dev);
 @@ -1859,7 +1843,7 @@
   				RT_TRACE(COMP_ERR, "img file size exceed the container buffer fail!\n");
- --- a/drivers/staging/rtl8712/hal_init.c
- +++ b/drivers/staging/rtl8712/hal_init.c
--@@ -72,8 +72,6 @@ int rtl871x_load_fw(struct _adapter *pad
-+@@ -72,8 +72,6 @@
-  	dev_info(dev, "r8712u: Loading firmware from \"%s\"\n", firmware_file);
-  	rc = request_firmware_nowait(THIS_MODULE, 1, firmware_file, dev,
-  				     GFP_KERNEL, padapter, rtl871x_load_fw_cb);
-@@ -1870,7 +1854,7 @@
-  MODULE_FIRMWARE("rtlwifi/rtl8712u.bin");
  --- a/drivers/staging/vt6656/main_usb.c
  +++ b/drivers/staging/vt6656/main_usb.c
 -@@ -107,11 +107,8 @@ static int vnt_download_firmware(struct
