@@ -1,4 +1,4 @@
---- firmware-remove-redundant-log-messages-from-drivers.patch2	2025-12-08 15:15:08.964875509 +0100
+--- firmware-remove-redundant-log-messages-from-drivers.patch	2025-12-08 15:15:08.964875509 +0100
 +++ firmware-remove-redundant-log-messages-from-drivers.patch	2025-12-08 15:15:20.833118760 +0100
 @@ -1857,17 +1857,6 @@
   
