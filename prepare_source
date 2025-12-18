@@ -1,7 +1,7 @@
 pkg=linux
 version_orig=6.18
 version="$version_orig-1"
-version_suffix="sixeighteen"
+version_suffix="experimental"
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
