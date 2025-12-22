@@ -1,0 +1,11 @@
+--- debian/bin/buildcheck.py	2025-12-22 13:45:30.175203108 +0100
++++ debian/bin/buildcheck.py	2025-12-22 13:45:23.826948485 +0100
+@@ -68,6 +68,8 @@
+         self.config = next(fc for fc in fs_config.flavours
+                            if fc.name == flavour)
+ 
++        print(" ".join(map(str, self.config.config)))
++
+     def __call__(self):
+         fail = 0
+ 
