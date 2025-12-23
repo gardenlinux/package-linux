@@ -29,4 +29,4 @@ cp -r config "$dir/src/debian/"
 apply_patches fixes_debian
 
 # Backporting for the 1877 release.
-version_suffix=gl1~bp1877
+version_suffix=gl2~bp1877
