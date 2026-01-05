@@ -34,8 +34,8 @@ name = 'none'
 
 [build]
 compiler_gnutype_compat = 'arm-linux-gnueabihf'
+enable_rust = true
 enable_signed = false
-enable_vdso = true
 kernel_file = 'arch/arm64/boot/Image'
 kernel_stem = 'vmlinuz'
 

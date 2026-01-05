@@ -32,8 +32,8 @@ hardware_long = 'cloud platforms including Amazon EC2, Microsoft Azure, and Goog
 name = 'none'
 
 [build]
+enable_rust = true
 enable_signed = false
-enable_vdso = true
 kernel_file = 'arch/x86/boot/bzImage'
 kernel_stem = 'vmlinuz'
 

@@ -1,5 +1,5 @@
 pkg=linux
-version_orig=6.18
+version_orig=6.18.3
 version="$version_orig-1"
 version_suffix="experimental"
 
