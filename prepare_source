@@ -5,7 +5,7 @@ version_suffix="experimental"
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.18_rc7-1_exp1"
+	debian_ref="debian/6.18.3-1"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
