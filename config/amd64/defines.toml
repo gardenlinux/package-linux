@@ -24,8 +24,6 @@ config = [
  'amd64/config.cloud-amd64',
  'config.gardenlinux'
 ]
-[flavour.defs]
-is_quick = true
 [flavour.description]
 hardware = 'x86-64 cloud'
 hardware_long = 'cloud platforms including Amazon EC2, Microsoft Azure, and Google Compute Engine'
@@ -34,8 +32,8 @@ hardware_long = 'cloud platforms including Amazon EC2, Microsoft Azure, and Goog
 name = 'none'
 
 [build]
+enable_rust = true
 enable_signed = false
-enable_vdso = true
 kernel_file = 'arch/x86/boot/bzImage'
 kernel_stem = 'vmlinuz'
 

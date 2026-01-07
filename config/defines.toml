@@ -13,7 +13,12 @@ name = 'x86'
 name = 'none'
 
 [build]
-compiler = 'gcc'
+c_compiler = 'gcc'
+rust_build_depends = [
+  'rustc:native',
+  'bindgen:native',
+  'rust-src',
+]
 
 [relations.image]
 depends = [

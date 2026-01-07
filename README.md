@@ -27,9 +27,10 @@ In some cases, we need to make changes to those to get a working build.
 
 | branch | description |
 | ------------- | -------------- |
-| `main` | latest lts kernel we maintain (6.12 as of December 2025) |
+| `main` | latest lts kernel we maintain (6.18) |
+| `maint-6.12` | maintenance of source code for kernel 6.12 |
 | `maint-6.6` | maintenance of source code for kernel 6.6 | 
-| `rel-1877` | backport for 1877, merge code from `main` | 
+| `rel-1877` | backport for 1877, merge code from `maint-6.12` | 
 | `rel-1592` | backport for 1592, merge code from `maint-6.6` |
 
 
@@ -55,10 +56,10 @@ git push
 ```
 
 > [!Tip]
-> You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1443.0](https://github.com/gardenlinux/repo/blob/1443.0/.container)
+> You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1877.0](https://github.com/gardenlinux/repo/blob/1877.0/.container)
 
 > [!Note]
-> We must create rel- branches to include the respective `.container` file, and not use maint for backports. This is required because multiple releases can use the same kernel version (e.g. rel-1443 and rel-1592 both use maint-6.6) 
+> We must create `rel-*` branches to include the respective `.container` file, and not use `maint-*` for backports. This is required because multiple releases can use the same kernel version (e.g. `rel-1443` and `rel-1592` both use `maint-6.6`) 
 
 ## Automated kernel patch level upgrades 
 

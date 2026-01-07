@@ -9,7 +9,7 @@ jobs:
     # Matrix build for maintenance of multiple kernels
     strategy:
       matrix:
-        branch: ['main', 'maint-6.6']
+        branch: ['main', 'maint-6.12', 'maint-6.6']
     permissions:
       pull-requests: write
       contents: write
