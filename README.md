@@ -56,10 +56,10 @@ git push
 ```
 
 > [!Tip]
-> You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1443.0](https://github.com/gardenlinux/repo/blob/1443.0/.container)
+> You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1877.0](https://github.com/gardenlinux/repo/blob/1877.0/.container)
 
 > [!Note]
-> We must create rel- branches to include the respective `.container` file, and not use maint for backports. This is required because multiple releases can use the same kernel version (e.g. rel-1443 and rel-1592 both use maint-6.6) 
+> We must create `rel-*` branches to include the respective `.container` file, and not use `maint-*` for backports. This is required because multiple releases can use the same kernel version (e.g. `rel-1443` and `rel-1592` both use `maint-6.6`) 
 
 ## Automated kernel patch level upgrades 
 
