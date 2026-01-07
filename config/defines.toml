@@ -13,11 +13,11 @@ name = 'x86'
 name = 'none'
 
 [build]
-c_compiler = 'gcc-15'
+c_compiler = 'gcc'
 rust_build_depends = [
-  'rustc:native (>= 1.78.0)',
-  'bindgen:native (>= 0.65.1)',
-  'rust-src (>= 1.78.0)',
+  'rustc:native',
+  'bindgen:native',
+  'rust-src',
 ]
 
 [relations.image]
@@ -34,4 +34,4 @@ breaks = [
 
 [[debianrelease]]
 name_regex = 'gardenlinux'
-revision_regex = '\dexperimental'
+revision_regex = '\d+gl(\d+)?(~bp\d+)?(~dev)?'
