@@ -8,3 +8,4 @@ fix-makefile-extract-cert.patch
 fix-sh-boot-do-not-use-hyphen-in-exported-variable-name.patch
 fix-series-sh-boot-do-not-use-hyphen-in-exported-variable-name.patch
 refresh_refresh_debian_patch_for_driver_firmware_removal_of_debug_messages.patch
+firmware-remove-redundant-log-messages-from-drivers.patch.patch
