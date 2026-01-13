@@ -1,0 +1,13 @@
+diff --git a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch
+index e6eec33dd7..6ffe0191fd 100644
+--- a/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch
++++ b/debian/patches/bugfix/all/firmware-remove-redundant-log-messages-from-drivers.patch
+@@ -2216,7 +2216,7 @@ upstream submission.
+  
+  	err = request_firmware(&firmware, path, dev->card->dev);
+ -	if (err < 0) {
+--		snd_printk(KERN_ERR "firmware (%s) download failed!!!\n", path);
++-		dev_err(dev->card->dev, "firmware (%s) download failed!!!\n", path);
+ +	if (err)
+  		return 1;
+ -	}
