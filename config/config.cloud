@@ -265,7 +265,7 @@ CONFIG_TCG_VTPM_PROXY=m
 ##
 ## file: drivers/hv/Kconfig
 ##
-CONFIG_HYPERV=m
+CONFIG_HYPERV=y
 
 ##
 ## file: drivers/hwmon/Kconfig

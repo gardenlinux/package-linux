@@ -1,6 +1,7 @@
 pkg=linux
 version_orig=6.18.5
 version="$version_orig-1"
+version_suffix="gl1"
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
