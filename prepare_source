@@ -1,11 +1,11 @@
 pkg=linux
-version_orig=6.6.56
-version="$version_orig-0"
+version_orig=6.18.5
+version="$version_orig-1"
+version_suffix="gl1"
 
 (
-	kernel_repo=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.6.15-2"
+	debian_ref="debian/6.18.3-1"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
@@ -14,8 +14,10 @@ version="$version_orig-0"
 	git clone --depth 1 --branch "$debian_ref" "$debian_repo" linux
 	cd linux
 
-	apt-get install --no-install-recommends -y python3-debian # needed for genorig
-	debian/bin/genorig.py --override-version "$version_orig" "$kernel_repo"
+	apt-get install --no-install-recommends -y gpgv # needed for uscan
+	apt-get remove --purge sqopv -y
+	uscan -v --download-version="$version_orig"
+
 	git clean -fdx
 
 	auto_decompress ../*.orig.tar.* | tee "$dir/orig.tar" | tar --extract --strip-components 1 --directory "$dir/src"
@@ -25,8 +27,4 @@ version="$version_orig-0"
 rm -rf "$dir/src/debian/config"
 cp -r config "$dir/src/debian/"
 
-rm "$dir/src/debian/patches/debian/Revert-docs-kernel_feat.py-fix-potential-command-inj.patch"
-sed -i '/debian\/Revert-docs-kernel_feat\.py-fix-potential-command-inj\.patch/d' "$dir/src/debian/patches/series"
-
 apply_patches fixes_debian
-import_upstream_patches

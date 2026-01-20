@@ -1,6 +1,1 @@
-x86-make-x32-syscall-support-conditional.update.patch
-efi-add-an-efi_secure_boot-flag-to-indicate-secure-b.update.patch
-efi-lock-down-the-kernel-if-booted-in-secure-boot-mo.update.patch
-add-symsearch-rule-to-debian-makefiles.patch
-fixes-firmware-remove-redundant-log-messages-from-drivers.patch
-fix-security-perf-allow-further-restriction-of-perf_event_open.patch
+series.patch

@@ -1,0 +1,49 @@
+name: Check for new patch version of kernel
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 5 * * *'
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # Matrix build for maintenance of multiple kernels
+    strategy:
+      matrix:
+        branch: ['main', 'maint-6.12', 'maint-6.6']
+    permissions:
+      pull-requests: write
+      contents: write
+      actions: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: |
+          OUTPUT=$(python update-kernel.py)
+          echo $OUTPUT
+          echo "has-update=$OUTPUT" >> "$GITHUB_OUTPUT"
+        id: update
+      - name: create pull request
+        run: |
+          if [[ '${{ steps.update.outputs.has-update }}' ]]; then
+            git checkout -b update-kernel-${{ matrix.branch }}
+            git add prepare_source
+            git config --global user.name "Garden Linux Builder"
+            git config --global user.email "gardenlinux@users.noreply.github.com"
+            git commit -am 'Update kernel ${{ steps.update.outputs.has-update }}'
+            git pull --rebase origin update-kernel-${{ matrix.branch }} || true
+            git push --set-upstream origin update-kernel-${{ matrix.branch }}
+            UPDATE_PR_LINK=$(gh pr create --base ${{ matrix.branch }} --head update-kernel-${{ matrix.branch }} --title 'Update kernel ${{ steps.update.outputs.has-update }}' --body "automated update")
+            # We have to trigger our own workflow run because github does not do that when the pr is created by automation
+            # This also means that we don't have the nice UI integration of test runs, so we add a comment to the workflow url for tracing purposes
+            gh workflow run "build.yml" --ref "update-kernel-${{ matrix.branch }}"
+            echo wait a few seconds until the workflow has started
+            sleep 5
+            RUN_URL=$(gh run list --workflow=build.yml --limit=1 --branch=update-kernel-${{ matrix.branch }} --json=url --jq='.[0].url')
+            gh pr comment $UPDATE_PR_LINK --body "CI workflow created: $RUN_URL"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

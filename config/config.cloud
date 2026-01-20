@@ -147,7 +147,6 @@ CONFIG_XEN_BLKDEV_FRONTEND=m
 ## file: drivers/char/tpm/Kconfig
 ##
 # CONFIG_HW_RANDOM_TPM is not set
-CONFIG_TCG_TIS=m
 # CONFIG_TCG_TIS_SPI is not set
 # CONFIG_TCG_TIS_I2C_ATMEL is not set
 # CONFIG_TCG_TIS_I2C_INFINEON is not set
@@ -266,7 +265,7 @@ CONFIG_TCG_VTPM_PROXY=m
 ##
 ## file: drivers/hv/Kconfig
 ##
-CONFIG_HYPERV=m
+CONFIG_HYPERV=y
 
 ##
 ## file: drivers/hwmon/Kconfig
@@ -1155,7 +1154,11 @@ CONFIG_HYPERV_STORAGE=m
 ##
 ## file: drivers/scsi/device_handler/Kconfig
 ##
-# CONFIG_SCSI_DH is not set
+CONFIG_SCSI_DH=y
+CONFIG_SCSI_DH_RDAC=m
+CONFIG_SCSI_DH_HP_SW=m
+CONFIG_SCSI_DH_EMC=m
+CONFIG_SCSI_DH_ALUA=m
 
 ##
 ## file: drivers/scsi/esas2r/Kconfig
@@ -1326,7 +1329,10 @@ CONFIG_FB_HYPERV=m
 ##
 ## file: drivers/virt/Kconfig
 ##
-# CONFIG_VIRT_DRIVERS is not set
+CONFIG_VIRT_DRIVERS=y
+CONFIG_SEV_GUEST=m
+CONFIG_EFI_SECRET=m
+CONFIG_NITRO_ENCLAVES=m
 
 ##
 ## file: drivers/w1/Kconfig

@@ -1,0 +1,37 @@
+
+[[kernelarch]]
+name = 'arm64'
+  [[kernelarch.debianarch]]
+  name = 'arm64'
+
+[[kernelarch]]
+name = 'x86'
+  [[kernelarch.debianarch]]
+  name = 'amd64'
+
+[[featureset]]
+name = 'none'
+
+[build]
+c_compiler = 'gcc'
+rust_build_depends = [
+  'rustc:native',
+  'bindgen:native',
+  'rust-src',
+]
+
+[relations.image]
+depends = [
+  'dracut | linux-initramfs-tool',
+]
+recommends = [
+  'apparmor',
+]
+breaks = [
+  'fwupdate (<< 12-7)',
+  'wireless-regdb (<< 2019.06.03-1~)',
+]
+
+[[debianrelease]]
+name_regex = 'gardenlinux'
+revision_regex = '\d+gl(\d+)?(~bp\d+)?(~dev)?'

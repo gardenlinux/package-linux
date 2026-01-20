@@ -1,5 +1,5 @@
 (
-	apt-get install --no-install-recommends -y kernel-wedge python3-jinja2
+	apt-get install --no-install-recommends -y kernel-wedge python3-jinja2 python3-dacite
 	cd "$dir/src"
-	{ PYTHONDONTWRITEBYTECODE=1 make -f debian/rules debian/control-real || true; } | grep 'generated SUCCESSFULLY'
+	PYTHONDONTWRITEBYTECODE=1 make -f debian/rules debian/control-real && echo "PASS" || echo "FAIL"
 )
