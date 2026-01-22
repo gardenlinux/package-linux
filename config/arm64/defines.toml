@@ -2,11 +2,9 @@
 name = 'arm64'
 [flavour.build]
 config = [
- 'config',
- 'arm64/config',
- 'arm64/config.gardenlinux',
  'config.gardenlinux',
  'config.tdx',
+ 'arm64/config.gardenlinux',
  'arm64/config.mlxbf'
 ]
 [flavour.defs]
@@ -20,10 +18,10 @@ installer = true
 name = 'cloud-arm64'
 [flavour.build]
 config = [
- 'arm64/config.gardenlinux',
  'config.cloud',
- 'arm64/config.cloud-arm64',
- 'config.gardenlinux'
+ 'config.gardenlinux',
+ 'arm64/config-cloud-arm64',
+ 'arm64/config.gardenlinux'
 ]
 [flavour.description]
 hardware = 'arm64 cloud'
