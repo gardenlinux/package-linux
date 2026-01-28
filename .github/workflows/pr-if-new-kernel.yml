@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     # Matrix build for maintenance of multiple kernels
     strategy:
+      fail-fast: false
       matrix:
         branch: ['main', 'maint-6.12', 'maint-6.6']
     permissions:

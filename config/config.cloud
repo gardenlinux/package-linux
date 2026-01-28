@@ -34,7 +34,8 @@ CONFIG_MQ_IOSCHED_DEADLINE=m
 # CONFIG_ATA_ACPI is not set
 # CONFIG_SATA_ZPODD is not set
 # CONFIG_SATA_PMP is not set
-# CONFIG_SATA_AHCI is not set
+#. Used by default as config drive on OpenStack
+CONFIG_SATA_AHCI=m
 # CONFIG_SATA_ACARD_AHCI is not set
 # CONFIG_SATA_SIL24 is not set
 CONFIG_ATA_SFF=y
@@ -42,6 +43,7 @@ CONFIG_ATA_SFF=y
 # CONFIG_SATA_QSTOR is not set
 # CONFIG_SATA_SX4 is not set
 CONFIG_ATA_BMDMA=y
+#. Used as config drive on Microsoft Azure
 CONFIG_ATA_PIIX=m
 # CONFIG_SATA_MV is not set
 # CONFIG_SATA_NV is not set
@@ -109,7 +111,6 @@ CONFIG_ATA_PIIX=m
 ## file: drivers/block/Kconfig
 ##
 # CONFIG_BLK_DEV_FD is not set
-# CONFIG_CDROM_PKTCDVD is not set
 CONFIG_XEN_BLKDEV_FRONTEND=m
 
 ##
@@ -338,12 +339,6 @@ CONFIG_MLX5_INFINIBAND=m
 # CONFIG_INFINIBAND_QEDR is not set
 
 ##
-## file: drivers/infiniband/hw/qib/Kconfig
-##
-# CONFIG_INFINIBAND_QIB is not set
-# CONFIG_INFINIBAND_QIB_DCA is not set
-
-##
 ## file: drivers/infiniband/sw/rdmavt/Kconfig
 ##
 # CONFIG_INFINIBAND_RDMAVT is not set
@@ -560,14 +555,8 @@ CONFIG_HYPERV_KEYBOARD=m
 ## file: drivers/net/Kconfig
 ##
 # CONFIG_GTP is not set
-# CONFIG_NET_SB1000 is not set
 CONFIG_XEN_NETDEV_FRONTEND=m
 # CONFIG_FUJITSU_ES is not set
-
-##
-## file: drivers/net/appletalk/Kconfig
-##
-# CONFIG_ATALK is not set
 
 ##
 ## file: drivers/net/arcnet/Kconfig
@@ -886,13 +875,9 @@ CONFIG_MICROSOFT_MANA=m
 CONFIG_HYPERV_NET=m
 
 ##
-## file: drivers/net/mdio/Kconfig
-##
-# CONFIG_MDIO_DEVICE is not set
-
-##
 ## file: drivers/net/phy/Kconfig
 ##
+# CONFIG_MDIO_BUS is not set
 # CONFIG_PHYLIB is not set
 
 ##
@@ -1016,7 +1001,6 @@ CONFIG_NVME_MULTIPATH=y
 # CONFIG_RTC_DRV_ISL12022 is not set
 # CONFIG_RTC_DRV_X1205 is not set
 # CONFIG_RTC_DRV_PCF8523 is not set
-# CONFIG_RTC_DRV_PCF85063 is not set
 # CONFIG_RTC_DRV_PCF8563 is not set
 # CONFIG_RTC_DRV_PCF8583 is not set
 # CONFIG_RTC_DRV_M41T80 is not set
@@ -1045,6 +1029,7 @@ CONFIG_NVME_MULTIPATH=y
 # CONFIG_RTC_DRV_MCP795 is not set
 # CONFIG_RTC_DRV_DS3232 is not set
 # CONFIG_RTC_DRV_PCF2127 is not set
+# CONFIG_RTC_DRV_PCF85063 is not set
 # CONFIG_RTC_DRV_RV3029C2 is not set
 # CONFIG_RTC_DRV_RX6110 is not set
 # CONFIG_RTC_DRV_DS1286 is not set
@@ -1062,7 +1047,6 @@ CONFIG_NVME_MULTIPATH=y
 # CONFIG_RTC_DRV_RP5C01 is not set
 # CONFIG_RTC_DRV_WM831X is not set
 # CONFIG_RTC_DRV_WM8350 is not set
-# CONFIG_RTC_DRV_PCF50633 is not set
 # CONFIG_RTC_DRV_ZYNQMP is not set
 # CONFIG_RTC_DRV_SNVS is not set
 # CONFIG_RTC_DRV_MOXART is not set
@@ -1245,7 +1229,6 @@ CONFIG_SCSI_DH_ALUA=m
 ##
 # CONFIG_SERIAL_NONSTANDARD is not set
 # CONFIG_N_HDLC is not set
-# CONFIG_N_GSM is not set
 # CONFIG_NOZOMI is not set
 
 ##
@@ -1301,8 +1284,6 @@ CONFIG_FB_EFI=y
 # CONFIG_FB_OPENCORES is not set
 # CONFIG_FB_S1D13XXX is not set
 # CONFIG_FB_I740 is not set
-# CONFIG_FB_LE80578 is not set
-# CONFIG_FB_CARILLO_RANCH is not set
 # CONFIG_FB_MATROX is not set
 # CONFIG_FB_RADEON is not set
 # CONFIG_FB_ATY128 is not set
@@ -1366,7 +1347,6 @@ CONFIG_NITRO_ENCLAVES=m
 # CONFIG_PC87413_WDT is not set
 # CONFIG_NV_TCO is not set
 # CONFIG_60XX_WDT is not set
-# CONFIG_CPU5_WDT is not set
 # CONFIG_SMSC_SCH311X_WDT is not set
 # CONFIG_SMSC37B787_WDT is not set
 # CONFIG_VIA_WDT is not set
@@ -1492,22 +1472,9 @@ CONFIG_EXT4_FS=y
 # CONFIG_QNX6FS_FS is not set
 
 ##
-## file: fs/reiserfs/Kconfig
-##
-# CONFIG_REISERFS_FS is not set
-
-##
 ## file: fs/ufs/Kconfig
 ##
 # CONFIG_UFS_FS is not set
-
-##
-## file: init/Kconfig
-##
-## choice: Kernel compression mode
-# CONFIG_KERNEL_XZ is not set
-CONFIG_KERNEL_LZ4=y
-## end choice
 
 ##
 ## file: kernel/power/Kconfig
@@ -1519,7 +1486,6 @@ CONFIG_KERNEL_LZ4=y
 ## file: lib/Kconfig.debug
 ##
 # CONFIG_DEBUG_MEMORY_INIT is not set
-# CONFIG_TEST_USER_COPY is not set
 # CONFIG_TEST_BPF is not set
 # CONFIG_TEST_FIRMWARE is not set
 # CONFIG_TEST_STATIC_KEYS is not set
@@ -1550,6 +1516,11 @@ CONFIG_KERNEL_LZ4=y
 ## file: net/9p/Kconfig
 ##
 # CONFIG_NET_9P is not set
+
+##
+## file: net/appletalk/Kconfig
+##
+# CONFIG_ATALK is not set
 
 ##
 ## file: net/atm/Kconfig

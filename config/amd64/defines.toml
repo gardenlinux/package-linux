@@ -2,8 +2,6 @@
 name = 'amd64'
 [flavour.build]
 config = [
- 'config',
- 'amd64/config',
  'amd64/config.mlx',
  'config.gardenlinux',
  'config.tdx'
@@ -21,8 +19,8 @@ name = 'cloud-amd64'
 [flavour.build]
 config = [
  'config.cloud',
- 'amd64/config.cloud-amd64',
- 'config.gardenlinux'
+ 'config.gardenlinux',
+ 'amd64/config-cloud-amd64'
 ]
 [flavour.description]
 hardware = 'x86-64 cloud'
