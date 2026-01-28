@@ -5,7 +5,8 @@ config = [
  'config.gardenlinux',
  'config.tdx',
  'arm64/config.gardenlinux',
- 'arm64/config.mlxbf'
+ 'arm64/config.mlxbf',
+ 'config.fips'
 ]
 [flavour.defs]
 is_default = true
@@ -21,7 +22,8 @@ config = [
  'config.cloud',
  'config.gardenlinux',
  'arm64/config-cloud-arm64',
- 'arm64/config.gardenlinux'
+ 'arm64/config.gardenlinux',
+ 'config.fips'
 ]
 [flavour.description]
 hardware = 'arm64 cloud'
