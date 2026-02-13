@@ -1,11 +1,13 @@
 pkg=linux
-version_orig=6.6.120
+debian_version=6.6.15-2
+version_orig=6.6.124
 version="$version_orig-1"
+version_suffix=gl1+bp1592
 
 (
 	kernel_repo=https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.6.15-2"
+	debian_ref="debian/${debian_version}"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
@@ -29,8 +31,5 @@ cp -r config "$dir/src/debian/"
 rm "$dir/src/debian/patches/debian/Revert-docs-kernel_feat.py-fix-potential-command-inj.patch"
 sed -i '/debian\/Revert-docs-kernel_feat\.py-fix-potential-command-inj\.patch/d' "$dir/src/debian/patches/series"
 
-apply_patches fixes_debian
+apply_patches debian_fixes
 import_upstream_patches
-
-# Backporting for the 1592 release.
-version_suffix=gl0~bp1592
