@@ -1,0 +1,37 @@
+#NVIDIA Driver Specific Configurations
+
+## RoCE
+## file: drivers/infiniband/Kconfig
+##
+CONFIG_INFINIBAND=m
+CONFIG_INFINIBAND_VIRT_DMA=y
+CONFIG_INFINIBAND_USER_MAD=m
+CONFIG_INFINIBAND_USER_ACCESS=m
+CONFIG_INFINIBAND_ON_DEMAND_PAGING=y
+CONFIG_INFINIBAND_ADDR_TRANS=y
+
+CONFIG_RDMA_RXE=m
+
+CONFIG_INFINIBAND_IPOIB=m
+CONFIG_INFINIBAND_IPOIB_CM=y
+
+CONFIG_NET_UDP_TUNNEL=y
+
+
+## EFA related configs
+
+##
+## file: drivers/dma/Kconfig
+##
+CONFIG_DMADEVICES=y
+
+##
+## file: drivers/infiniband/Kconfig
+##
+CONFIG_INFINIBAND_EFA=m
+
+
+##
+## file: drivers/infiniband/sw/rdmavt/Kconfig
+##
+CONFIG_INFINIBAND_RDMAVT=m
