@@ -5,7 +5,9 @@ config = [
  'amd64/config.mlx',
  'config.gardenlinux',
  'config.tdx',
- 'config.nvidia'
+ 'config.nvidia',
+ 'config.harden',
+ 'config.harden.metal'
 ]
 [flavour.defs]
 is_default = true
@@ -22,7 +24,8 @@ config = [
  'config.cloud',
  'config.gardenlinux',
  'amd64/config-cloud-amd64',
- 'config.nvidia'
+ 'config.nvidia',
+ 'config.harden'
 ]
 [flavour.description]
 hardware = 'x86-64 cloud'
