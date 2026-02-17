@@ -6,6 +6,7 @@ config = [
  'config.tdx',
  'arm64/config.gardenlinux',
  'arm64/config.mlxbf',
+ 'config.nvidia',
  'config.harden',
  'config.harden.metal'
 ]
@@ -24,6 +25,7 @@ config = [
  'config.gardenlinux',
  'arm64/config-cloud-arm64',
  'arm64/config.gardenlinux',
+ 'config.nvidia',
  'config.harden'
 ]
 [flavour.description]
