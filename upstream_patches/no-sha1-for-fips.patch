@@ -1,41 +1,41 @@
 diff -Nur a/crypto/testmgr.c b/crypto/testmgr.c
---- a/crypto/testmgr.c	2026-02-19 16:33:27.000000000 +0100
-+++ b/crypto/testmgr.c	2026-02-24 09:44:34.790238895 +0100
-@@ -4090,7 +4090,6 @@
+--- a/crypto/testmgr.c	2026-02-19 16:29:56.000000000 +0100
++++ b/crypto/testmgr.c	2026-02-26 15:13:37.745263069 +0100
+@@ -4383,7 +4383,6 @@
+ 	}, {
  		.alg = "authenc(hmac(sha1),cbc(aes))",
- 		.generic_driver = "authenc(hmac-sha1-lib,cbc(aes-generic))",
  		.test = alg_test_aead,
 -		.fips_allowed = 1,
  		.suite = {
  			.aead = __VECS(hmac_sha1_aes_cbc_tv_temp)
  		}
-@@ -4111,7 +4110,6 @@
+@@ -4402,7 +4401,6 @@
  	}, {
  		.alg = "authenc(hmac(sha1),ctr(aes))",
  		.test = alg_test_null,
 -		.fips_allowed = 1,
  	}, {
  		.alg = "authenc(hmac(sha1),ecb(cipher_null))",
- 		.generic_driver = "authenc(hmac-sha1-lib,ecb-cipher_null)",
-@@ -4122,7 +4120,6 @@
+ 		.test = alg_test_aead,
+@@ -4412,7 +4410,6 @@
  	}, {
  		.alg = "authenc(hmac(sha1),rfc3686(ctr(aes)))",
  		.test = alg_test_null,
 -		.fips_allowed = 1,
  	}, {
  		.alg = "authenc(hmac(sha224),cbc(des))",
- 		.generic_driver = "authenc(hmac-sha224-lib,cbc(des-generic))",
-@@ -4984,7 +4981,6 @@
+ 		.test = alg_test_aead,
+@@ -5259,7 +5256,6 @@
+ 	}, {
  		.alg = "hmac(sha1)",
- 		.generic_driver = "hmac-sha1-lib",
  		.test = alg_test_hash,
 -		.fips_allowed = 1,
  		.suite = {
  			.hash = __VECS(hmac_sha1_tv_template)
  		}
-@@ -5356,7 +5352,6 @@
+@@ -5576,7 +5572,6 @@
+ 	}, {
  		.alg = "sha1",
- 		.generic_driver = "sha1-lib",
  		.test = alg_test_hash,
 -		.fips_allowed = 1,
  		.suite = {
