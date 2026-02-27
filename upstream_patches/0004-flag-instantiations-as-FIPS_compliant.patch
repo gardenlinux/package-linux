@@ -1,0 +1,89 @@
+From e21c2482355f25a3898b0612ed39bfc9139eb28a Mon Sep 17 00:00:00 2001
+From: Vladis Dronov <vdronov@redhat.com>
+Date: Tue, 13 Aug 2024 19:38:32 +0200
+Subject: [PATCH] crypto: seqiv - flag instantiations as FIPS compliant
+
+JIRA: https://issues.redhat.com/browse/RHEL-54183
+Upstream Status: RHEL only
+
+Forwardport of 45e87c3b9284 ("crypto: seqiv - flag instantiations as FIPS
+compliant") from C9S. This patch has no chances to be accepted upstream,
+see the commit message below.
+
+Author: Nicolai Stange <nstange@suse.de>
+
+    crypto: seqiv - flag instantiations as FIPS compliant
+
+    For gcm(aes) with external IV generation, FIPS 140-3 requires the
+    verification of all external IV generation operations in order to ensure
+    the uniqueness of the IV (see IG C.H). This is being deemed unfeasible and
+    thus, only internal IV generation, i.e. wrapping gcm(aes) with seqiv(),
+    can effectively be considered as approved.
+
+    The standard approach would be to disallow plain gcm(aes) and to only
+    allow seqiv(gcm(aes)) in FIPS mode. However, there are quite some plain
+    gcm(aes) usage sites in the kernel: a quick grep reveals samba, macsec,
+    ceph, mac80211, tipc, tls, etc. and breaking these in FIPS mode would be
+    highly undesirable. It might perhaps be possible to convert some of these
+    to seqiv(gcm(aes)), but for some others it might be entirely impossible due
+    to e.g. protocol constraints.
+
+    For the time being, an alternative approach has been proposed as a
+    workaround: make seqiv() set a new flag, CRYPTO_TFM_FIPS_COMPLIANCE, on the
+    transforms and document that in the particular case of gcm(aes), callers
+    must check for this flag in order to determine FIPS compliance.
+
+    Implement this.
+
+    Signed-off-by: Nicolai Stange <nstange@suse.de>
+
+Signed-off-by: Vladis Dronov <vdronov@redhat.com>
+---
+ crypto/seqiv.c         | 15 ++++++++++++++-
+ include/linux/crypto.h |  2 ++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/crypto/seqiv.c b/crypto/seqiv.c
+index 17e11d51ddc3..9c136a3b6267 100644
+--- a/crypto/seqiv.c
++++ b/crypto/seqiv.c
+@@ -126,6 +126,19 @@ static int seqiv_aead_decrypt(struct aead_request *req)
+ 	return crypto_aead_decrypt(subreq);
+ }
+ 
++static int aead_init_seqiv(struct crypto_aead *aead)
++{
++	int err;
++
++	err = aead_init_geniv(aead);
++	if (err)
++		return err;
++
++	crypto_aead_set_flags(aead, CRYPTO_TFM_FIPS_COMPLIANCE);
++
++	return 0;
++}
++
+ static int seqiv_aead_create(struct crypto_template *tmpl, struct rtattr **tb)
+ {
+ 	struct aead_instance *inst;
+@@ -149,7 +162,7 @@ static int seqiv_aead_create(struct crypto_template *tmpl, struct rtattr **tb)
+ 	inst->alg.encrypt = seqiv_aead_encrypt;
+ 	inst->alg.decrypt = seqiv_aead_decrypt;
+ 
+-	inst->alg.init = aead_init_geniv;
++	inst->alg.init = aead_init_seqiv;
+ 	inst->alg.exit = aead_exit_geniv;
+ 
+ 	inst->alg.base.cra_ctxsize = sizeof(struct aead_geniv_ctx);
+diff --git a/include/linux/crypto.h b/include/linux/crypto.h
+index a2137e19be7d..5a8db3d53888 100644
+--- a/include/linux/crypto.h
++++ b/include/linux/crypto.h
+@@ -154,2 +154,3 @@
+
++#define CRYPTO_TFM_FIPS_COMPLIANCE     0x80000000
+ /*
+-- 
+GitLab
+
