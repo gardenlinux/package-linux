@@ -1,3 +1,4 @@
 0001-disable-sha1-for-fips.patch
 0002-implement-FIPS-PCT-for-DH.patch
+0003-implement-FIPS-PCT-for-ECDH.patch
 0004-flag-instantiations-as-FIPS_compliant.patch
