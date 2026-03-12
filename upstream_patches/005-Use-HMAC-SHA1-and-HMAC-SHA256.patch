@@ -170,7 +170,7 @@ diff -urN b/net/ipv6/seg6.c a/net/ipv6/seg6.c
  	genl_unregister_family(&seg6_genl_family);
 diff -urN b/net/ipv6/seg6_hmac.c a/net/ipv6/seg6_hmac.c
 --- b/net/ipv6/seg6_hmac.c	2026-03-11 14:46:46
-+++ a/net/ipv6/seg6_hmac.c	2026-03-12 10:21:21
++++ a/net/ipv6/seg6_hmac.c	2026-03-12 14:37:26
 @@ -16,7 +16,6 @@
  #include <linux/in6.h>
  #include <linux/icmpv6.h>
@@ -283,15 +283,7 @@ diff -urN b/net/ipv6/seg6_hmac.c a/net/ipv6/seg6_hmac.c
  	/* saddr(16) + first_seg(1) + flags(1) + keyid(4) + seglist(16n) */
  	plen = 16 + 1 + 1 + 4 + (hdr->first_segment + 1) * 16;
  
-@@ -188,6 +116,7 @@
- 	 */
- 
- 	local_bh_disable();
-+	local_lock_nested_bh(&hmac_storage.bh_lock);
- 	ring = this_cpu_ptr(hmac_ring);
- 	off = ring;
- 
-@@ -211,21 +140,27 @@
+@@ -211,21 +139,26 @@
  		off += 16;
  	}
  
@@ -314,7 +306,6 @@ diff -urN b/net/ipv6/seg6_hmac.c a/net/ipv6/seg6_hmac.c
 +		break;
 +	}
 +	
-+	local_unlock_nested_bh(&hmac_storage.bh_lock);
  	local_bh_enable();
  
 -	if (dgsize < 0)
@@ -332,7 +323,7 @@ diff -urN b/net/ipv6/seg6_hmac.c a/net/ipv6/seg6_hmac.c
  }
  EXPORT_SYMBOL(seg6_hmac_compute);
  
-@@ -296,8 +231,18 @@
+@@ -296,8 +229,18 @@
  	struct seg6_pernet_data *sdata = seg6_pernet(net);
  	int err;
  
@@ -352,7 +343,7 @@ diff -urN b/net/ipv6/seg6_hmac.c a/net/ipv6/seg6_hmac.c
  
  	err = rhashtable_lookup_insert_fast(&sdata->hmac_infos, &hinfo->node,
  					    rht_params);
-@@ -354,101 +299,12 @@
+@@ -354,101 +297,12 @@
  }
  EXPORT_SYMBOL(seg6_push_hmac);
  
