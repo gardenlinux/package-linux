@@ -1,3 +1,71 @@
+diff -urN b/include/crypto/sha1.h a/include/crypto/sha1.h
+--- b/include/crypto/sha1.h	2026-03-11 14:46:35
++++ a/include/crypto/sha1.h	2026-03-12 13:47:48
+@@ -33,6 +33,21 @@
+ extern int crypto_sha1_finup(struct shash_desc *desc, const u8 *data,
+ 			     unsigned int len, u8 *hash);
+ 
++/* State for the SHA-1 compression function */
++struct sha1_block_state {
++	u32 h[SHA1_DIGEST_SIZE / 4];
++};
++
++/**
++ * struct hmac_sha1_key - Prepared key for HMAC-SHA1
++ * @istate: private
++ * @ostate: private
++ */
++struct hmac_sha1_key {
++	struct sha1_block_state istate;
++	struct sha1_block_state ostate;
++};
++
+ /*
+  * An implementation of SHA-1's compression function.  Don't use in new code!
+  * You shouldn't be using SHA-1, and even if you *have* to use SHA-1, this isn't
+diff -urN b/include/crypto/sha2.h a/include/crypto/sha2.h
+--- b/include/crypto/sha2.h	2026-03-11 14:46:35
++++ a/include/crypto/sha2.h	2026-03-12 13:47:46
+@@ -13,6 +13,7 @@
+ 
+ #define SHA256_DIGEST_SIZE      32
+ #define SHA256_BLOCK_SIZE       64
++#define SHA256_STATE_WORDS      8
+ 
+ #define SHA384_DIGEST_SIZE      48
+ #define SHA384_BLOCK_SIZE       128
+@@ -130,5 +131,31 @@
+ }
+ /* Simply use sha256_update as it is equivalent to sha224_update. */
+ void sha224_final(struct sha256_state *sctx, u8 *out);
++
++
++/* State for the SHA-256 (and SHA-224) compression function */
++struct sha256_block_state {
++	u32 h[SHA256_STATE_WORDS];
++};
++
++/*
++ * HMAC key and message context structs, shared by HMAC-SHA224 and HMAC-SHA256.
++ * The hmac_sha224_* and hmac_sha256_* structs wrap this one so that the API has
++ * proper typing and doesn't allow mixing the functions arbitrarily.
++ */
++struct __hmac_sha256_key {
++	struct sha256_block_state istate;
++	struct sha256_block_state ostate;
++};
++
++/**
++ * struct hmac_sha256_key - Prepared key for HMAC-SHA256
++ * @key: private
++ */
++struct hmac_sha256_key {
++	struct __hmac_sha256_key key;
++};
++
++
+ 
+ #endif /* _CRYPTO_SHA2_H */
 diff -urN b/include/net/seg6_hmac.h a/include/net/seg6_hmac.h
 --- b/include/net/seg6_hmac.h	2026-03-11 14:46:34
 +++ a/include/net/seg6_hmac.h	2026-03-11 16:13:42
