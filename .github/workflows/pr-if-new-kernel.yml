@@ -29,22 +29,26 @@ jobs:
         id: update
       - name: create pull request
         run: |
-          if [[ "${{ steps.update.outputs.has-update }}" ]]; then
-            git checkout -B update-kernel-${{ matrix.branch }}
-            git fetch origin update-kernel-${{ matrix.branch }} || true
-            git merge origin/update-kernel-${{ matrix.branch }} --no-edit || true
+          if [[ -n "${{ steps.update.outputs.has-update }}" ]]; then
+            BRANCH=update-kernel-${{ matrix.branch }}
+            git fetch origin $BRANCH || true
+            if git rev-parse --verify origin/$BRANCH >/dev/null 2>&1; then
+              git checkout -B $BRANCH origin/$BRANCH
+            else
+              git checkout -B $BRANCH origin/${{ matrix.branch }}
+            fi
             git add prepare_source
             git config --global user.name "Garden Linux Builder"
             git config --global user.email "gardenlinux@users.noreply.github.com"
             git commit -am "Update kernel ${{ steps.update.outputs.has-update }}"
-            git push --set-upstream origin update-kernel-${{ matrix.branch }}
-            UPDATE_PR_LINK=$(gh pr create --base ${{ matrix.branch }} --head update-kernel-${{ matrix.branch }} --title "Update kernel ${{ steps.update.outputs.has-update }}" --body "automated update")
+            git push --set-upstream origin $BRANCH
+            UPDATE_PR_LINK=$(gh pr create --base ${{ matrix.branch }} --head $BRANCH --title "Update kernel ${{ steps.update.outputs.has-update }}" --body "automated update")
             # We have to trigger our own workflow run because github does not do that when the pr is created by automation
             # This also means that we don't have the nice UI integration of test runs, so we add a comment to the workflow url for tracing purposes
-            gh workflow run "build.yml" --ref "update-kernel-${{ matrix.branch }}"
+            gh workflow run "build.yml" --ref "$BRANCH"
             echo wait a few seconds until the workflow has started
             sleep 5
-            RUN_URL=$(gh run list --workflow=build.yml --limit=1 --branch=update-kernel-${{ matrix.branch }} --json=url --jq='.[0].url')
+            RUN_URL=$(gh run list --workflow=build.yml --limit=1 --branch=$BRANCH --json=url --jq='.[0].url')
             gh pr comment $UPDATE_PR_LINK --body "CI workflow created: $RUN_URL"
           fi
         env:
