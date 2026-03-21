@@ -29,7 +29,7 @@ jobs:
         id: update
       - name: create pull request
         run: |
-          if [[ -n "${{ steps.update.outputs.has-update }}" ]]; then
+          if [[ "${{ steps.update.outputs.has-update }}" ]]; then
             BRANCH=update-kernel-${{ matrix.branch }}
             git fetch origin $BRANCH || true
             if git rev-parse --verify origin/$BRANCH >/dev/null 2>&1; then
