@@ -29,8 +29,10 @@ jobs:
         id: update
       - name: create pull request
         run: |
-          if [[ -n "${{ steps.update.outputs.has-update }}" ]]; then
+          if [[ "${{ steps.update.outputs.has-update }}" ]]; then
             git checkout -B update-kernel-${{ matrix.branch }}
+            git fetch origin update-kernel-${{ matrix.branch }} || true
+            git merge origin/update-kernel-${{ matrix.branch }} --no-edit || true
             git add prepare_source
             git config --global user.name "Garden Linux Builder"
             git config --global user.email "gardenlinux@users.noreply.github.com"
