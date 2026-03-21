@@ -31,12 +31,14 @@ jobs:
         run: |
           if [[ "${{ steps.update.outputs.has-update }}" ]]; then
             BRANCH=update-kernel-${{ matrix.branch }}
+            git stash push -m kernel-update || true
             git fetch origin $BRANCH || true
             if git rev-parse --verify origin/$BRANCH >/dev/null 2>&1; then
               git checkout -B $BRANCH origin/$BRANCH
             else
               git checkout -B $BRANCH origin/${{ matrix.branch }}
             fi
+            git stash pop || true
             OUTPUT=$(python update-kernel.py)
             echo $OUTPUT
             git add prepare_source
