@@ -1,0 +1,40 @@
+From linux-crypto-vger  Tue Mar 03 06:05:09 2026
+From: Joachim Vandersmissen <git () jvdsn ! com>
+Date: Tue, 03 Mar 2026 06:05:09 +0000
+To: linux-crypto-vger
+Subject: [PATCH] crypto: testmgr - block Crypto API xxhash64 in FIPS mode
+Message-Id: <20260303060509.246038-1-git () jvdsn ! com>
+X-MARC-Message: https://marc.info/?l=linux-crypto-vger&m=177252066229289
+
+xxhash64 is not a cryptographic hash algorithm, but is offered in the
+same API (shash) as actual cryptographic hash algorithms such as
+SHA-256. The Cryptographic Module Validation Program (CMVP), managing
+FIPS certification, believes that this could cause confusion. xxhash64
+must therefore be blocked in FIPS mode.
+
+The only usage of xxhash64 in the kernel is btrfs. Commit fe11ac191ce0
+("btrfs: switch to library APIs for checksums") recently modified the
+btrfs code to use the lib/crypto API, avoiding the Kernel Cryptographic
+API. Consequently, the removal of xxhash64 from the Crypto API in FIPS
+mode should now have no impact on btrfs usage.
+
+Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
+---
+ crypto/testmgr.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index 49b607f65f63..d7475d6000dd 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -5609,7 +5609,6 @@ static const struct alg_test_desc alg_test_descs[] = {
+ #endif
+ 		.alg = "xxhash64",
+ 		.test = alg_test_hash,
+-		.fips_allowed = 1,
+ 		.suite = {
+ 			.hash = __VECS(xxhash64_tv_template)
+ 		}
+-- 
+2.53.0
+
