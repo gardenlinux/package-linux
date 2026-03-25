@@ -28,4 +28,4 @@ cp -r config "$dir/src/debian/"
 
 apply_patches fixes_debian
 import_upstream_patches
-version_suffix=gl2~bp2150
+version_suffix=gl3~bp2150
