@@ -1,6 +1,8 @@
 name: Build Kernel
 on:
   push:
+    paths-ignore:
+      - 'docs/**'
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
