@@ -1,0 +1,12 @@
+diff -urN b/crypto/drbg.c a/crypto/drbg.c
+--- b/crypto/drbg.c	2026-04-22 12:18:01.367246038 +0000
++++ a/crypto/drbg.c	2026-04-22 12:17:39.067129474 +0000
+@@ -2124,6 +2124,8 @@
+ 	for (j = 0; ARRAY_SIZE(drbg_cores) > j; j++, i++)
+ 		drbg_fill_array(&drbg_algs[i], &drbg_cores[j], 0);
+ 
++	pr_info("DRBG: DRBG Enabled\n");
++
+ 	return crypto_register_rngs(drbg_algs, (ARRAY_SIZE(drbg_cores) * 2));
+ }
+ 
