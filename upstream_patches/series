@@ -3,4 +3,4 @@
 0003-implement-FIPS-PCT-for-ECDH.patch
 0004-flag-instantiations-as-FIPS_compliant.patch
 0005-disable-xxhash64.patch
-001_drbg_log.patch
+0006_drbg_log.patch
