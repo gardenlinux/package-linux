@@ -1,24 +1,28 @@
 ---
-title: "Garden Linux Kernel Builds"
+title: "Kernel Builds"
 description: "How to build a Garden Linux Kernel"
-migration_status: "adapt"
+related_topics:
+  - /explanation/kernel.md
+  - /how-to/kernel-builds.md
+  - /reference/kernel-flavors.md
+migration_status: "done"
 migration_issue: "https://github.com/gardenlinux/gardenlinux/issues/4629"
 migration_stakeholder: "@tmangold, @yeoldegrove, @ByteOtter"
 migration_approved: false
 github_org: gardenlinux
 github_repo: package-linux
-github_source_path: docs/reference/README.md
-github_target_path: docs/reference/kernel-builds.md
+github_source_path: docs/how-to/kernel-builds.md
+github_target_path: docs/how-to/kernel-builds.md
 ---
 
-# Kernel builds for Garden Linux
+# Kernel Builds
 
-This repository contains the code for building the [kernel](https://www.kernel.org) in Garden Linux.
+The [package-linux](https://github.com/gardenlinux/package-linux) repository contains the code for building the [kernel](https://www.kernel.org) in Garden Linux.
 The build is based on [the debian kernel build](https://salsa.debian.org/kernel-team/linux).
 
 Garden Linux includes the latest LTS version of the kernel.
 
-## Components of this repository
+## Components
 
 `./config` contains Garden Linux specific build configuration for the kernel.
 
@@ -36,7 +40,7 @@ In some cases, we need to make changes to those to get a working build.
 
 `.github/workflows/build.yml` contains the workflow to build and release the kernel binaries.
 
-## Backports
+## Branch Structure
 
 | branch       | description                                     |
 | ------------ | ----------------------------------------------- |
@@ -56,33 +60,64 @@ Backport releases need to branch off from the respective `maint-<MAJOR.MINOR>` b
 
 Branches containing the `.container` file must be named according to the `rel-MAJOR` naming scheme (e.g. `rel-1443`).
 
-## How to do a backport from maint-X.Y branch
+## How to Create Kernel Backports from `maint-X.Y` branch
 
-```
+1. Checkout the appropriate release branch:
+
+```bash
 git checkout rel-MAJOR
+```
+
+2. Merge changes from the maintenance branch (replace x.y with the appropriate version):
+
+```bash
 git merge --squash origin/maint-x.y
 # resolve merge conflicts
-git commit
-git push
-# Pipeline builds new rel-MAJOR version
 ```
 
-> [!Tip]
-> You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1877.0](https://github.com/gardenlinux/repo/blob/1877.0/.container)
+3. Commit the changes:
 
-> [!Note]
-> We must create `rel-*` branches to include the respective `.container` file, and not use `maint-*` for backports. This is required because multiple releases can use the same kernel version (e.g. `rel-1443` and `rel-1592` both use `maint-6.6`)
+```bash
+git commit
+```
+
+4. Push the changes:
+
+```bash
+git push origin rel-MAJOR
+```
+
+5. The Github Workflow will now build the new rel-MAJOR version.
+
+:::tip
+You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1877.0](https://github.com/gardenlinux/repo/blob/1877.0/.container)
+:::
+
+:::info
+We must create `rel-*` branches to include the respective `.container` file, and not use `maint-*` for backports. This is required because multiple releases can use the same kernel version (e.g. `rel-1443` and `rel-1592` both use `maint-6.6`)
+:::
 
 ## Automated kernel patch level upgrades
 
 A scheduled workflow scans a list of configured branches [see](https://github.com/gardenlinux/package-linux/blob/main/.github/workflows/pr-if-new-kernel.yml#L12), and bumps the patch level of the version defined in the prepare_source file.
 The automation creates a PR if a new patch level is available.
 
-> [!Important]
-> Note that build failures in this PR will not be visible in the way you are used to it.
-> This is due to limitations on GitHub.
-> Always check the PR-related workflow manually before merge as it might well be that an upgrade of the kernel breaks the build.
-> [See this issue for more information if you are interested](https://github.com/gardenlinux/package-linux/issues/47).
+:::warning
+Note that build failures in this PR will not be visible in the way you are used to it.
+This is due to limitations on GitHub.
+Always check the PR-related workflow manually before merge as it might well be that an upgrade of the kernel breaks the build.
+[See this issue for more information if you are interested](https://github.com/gardenlinux/package-linux/issues/47).
+:::
 
-> [!Note]
-> This is done via the [update-kernel.py](https://github.com/gardenlinux/package-linux/blob/main/update-kernel.py) tool
+:::info
+This is done via the [update-kernel.py](https://github.com/gardenlinux/package-linux/blob/main/update-kernel.py) tool
+:::
+
+## Further reading
+
+- [kernel.org LTS releases](https://www.kernel.org/category/releases.html)
+- [Debian kernel patches](https://salsa.debian.org/kernel-team/linux/-/tree/master/debian/patches)
+
+## Related Topics
+
+<RelatedTopics />

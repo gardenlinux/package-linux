@@ -1,1 +1,1 @@
-docs/how-to/README.md
+docs/how-to/kernel-builds.md
