@@ -1,6 +1,6 @@
 ---
-title: "Garden Linux Kernel"
-description: Why we build the kernel the way we build it
+title: "Kernel"
+description: Why we build the Garden Linux Kernel the way we build it
 related_topics:
   - /explanation/kernel.md
   - /how-to/kernel-builds.md
