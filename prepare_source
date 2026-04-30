@@ -1,5 +1,5 @@
 pkg=linux
-version_orig=6.12.74
+version_orig=6.12.85
 version="$version_orig-1"
 
 (
@@ -28,4 +28,4 @@ cp -r config "$dir/src/debian/"
 
 apply_patches fixes_debian
 import_upstream_patches
-version_suffix=gl8~bp1877
+version_suffix=gl0~bp1877
