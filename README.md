@@ -29,9 +29,7 @@ In some cases, we need to make changes to those to get a working build.
 | ------------- | -------------- |
 | `main` | latest lts kernel we maintain (6.18) |
 | `maint-6.12` | maintenance of source code for kernel 6.12 |
-| `maint-6.6` | maintenance of source code for kernel 6.6 | 
 | `rel-1877` | backport for 1877, merge code from `maint-6.12` | 
-| `rel-1592` | backport for 1592, merge code from `maint-6.6` |
 
 
 The main branch of this repository always contains the latest kernel available in Garden Linux, and in the nightly builds.
@@ -39,10 +37,10 @@ Typically, this will be the most recent long term support (LTS) line from kernel
 
 We maintain also older supported kernel versions, if they are required by supported Garden Linux versions.
 
-Any kernel version that we need to maintain other than the latest LTS in main, are maintained in `maint-<MAJOR.MINOR>` branches (e.g. `maint-6.6`).
+Any kernel version that we need to maintain other than the latest LTS in main, are maintained in `maint-<MAJOR.MINOR>` branches (e.g. `maint-6.12`).
 Backport releases need to branch off from the respective `maint-<MAJOR.MINOR>` branch and include the corresponding `.container` file for target backport.
 
-Branches containing the `.container` file must be named according to the `rel-MAJOR` naming scheme (e.g. `rel-1443`).
+Branches containing the `.container` file must be named according to the `rel-MAJOR` naming scheme (e.g. `rel-1877`).
 
 ## How to do a backport from maint-X.Y branch
 
@@ -59,7 +57,7 @@ git push
 > You can find out the correct `.container` file by copying it from the corresponding tag of the https://github.com/gardenlinux/repo branch, for example [1877.0](https://github.com/gardenlinux/repo/blob/1877.0/.container)
 
 > [!Note]
-> We must create `rel-*` branches to include the respective `.container` file, and not use `maint-*` for backports. This is required because multiple releases can use the same kernel version (e.g. `rel-1443` and `rel-1592` both use `maint-6.6`) 
+> We must create `rel-*` branches to include the respective `.container` file, and not use `maint-*` for backports. This is required because multiple releases can use the same kernel version (e.g. `rel-1443` and `rel-1592` both used `maint-6.6`) 
 
 ## Automated kernel patch level upgrades 
 
