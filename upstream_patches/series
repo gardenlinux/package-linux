@@ -5,3 +5,5 @@
 0005-disable-xxhash64.patch
 0006_drbg_log.patch
 0007-fips-rng.patch
+CVE-2026-31688.patch
+CVE-2026-43009.patch
