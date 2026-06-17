@@ -4,5 +4,4 @@
 0004-flag-instantiations-as-FIPS_compliant.patch
 0005-disable-xxhash64.patch
 CVE-2026-31688.patch
-CVE-2026-31709.patch
 CVE-2026-43009.patch
