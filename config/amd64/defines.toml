@@ -3,6 +3,7 @@ name = 'amd64'
 [flavour.build]
 config = [
  'amd64/config.mlx',
+ 'amd64/config.sci',
  'config.gardenlinux',
  'config.tdx',
  'config.nvidia',
