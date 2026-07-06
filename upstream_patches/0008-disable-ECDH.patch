@@ -1,0 +1,14 @@
+:100644 100644 2f5f6b52b2d4 000000000000 M	crypto/testmgr.c
+
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index 2f5f6b52b2d4..52c90d7cd82e 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -5115,3 +5115,2 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.test = alg_test_kpp,
+-		.fips_allowed = 1,
+ 		.suite = {
+@@ -5122,3 +5121,2 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.test = alg_test_kpp,
+-		.fips_allowed = 1,
+ 		.suite = {
