@@ -59,7 +59,7 @@ which is used by Garden Linux as a base for configuration.
 We extend this kernel configuration to our specific requirements during the
 kernel integration process.
 
-Furthermore, Debian kernel [patches](https://salsa.debian.org/kernel-team/linux/-/tree/master/debian/patches) are applied in most cases.
+Additionally, Debian kernel [patches](https://salsa.debian.org/kernel-team/linux/-/tree/master/debian/patches) are applied in most cases.
 
 ## Further reading
 
