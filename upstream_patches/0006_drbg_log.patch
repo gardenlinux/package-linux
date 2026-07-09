@@ -1,0 +1,24 @@
+diff -urN --no-dereference b/crypto/drbg.c a/crypto/drbg.c
+--- b/crypto/drbg.c	2026-07-09 12:50:30
++++ a/crypto/drbg.c	2026-07-09 12:57:24
+@@ -2123,7 +2123,19 @@
+ 		drbg_fill_array(&drbg_algs[i], &drbg_cores[j], 1);
+ 	for (j = 0; ARRAY_SIZE(drbg_cores) > j; j++, i++)
+ 		drbg_fill_array(&drbg_algs[i], &drbg_cores[j], 0);
+-	return crypto_register_rngs(drbg_algs, (ARRAY_SIZE(drbg_cores) * 2));
++
++	pr_info("DRBG: DRBG Enabled");
++
++	ret = crypto_register_rngs(drbg_algs, (ARRAY_SIZE(drbg_cores) * 2));
++
++	if (!ret)
++	{
++
++		pr_info("random: DRBG (%s) initialized!\n",
++                  drbg_algs[ARRAY_SIZE(drbg_cores) * 2 - 1].base.cra_driver_name);
++	}
++
++	return ret;
+ }
+ 
+ static void __exit drbg_exit(void)
