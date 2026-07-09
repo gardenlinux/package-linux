@@ -103,7 +103,7 @@ A scheduled workflow scans a list of configured branches [see](https://github.co
 The automation creates a PR if a new patch level is available.
 
 :::warning
-Note that build failures in this PR will not be visible in the way you are used to it.
+Build failures in this PR will not be visible in the way you are used to it.
 This is due to limitations on GitHub.
 Always check the PR-related workflow manually before merge as it might well be that an upgrade of the kernel breaks the build.
 [See this issue for more information if you are interested](https://github.com/gardenlinux/package-linux/issues/47).
