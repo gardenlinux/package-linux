@@ -1,0 +1,39 @@
+From: Ben Hutchings <benh@debian.org>
+Date: Tue, 8 Jul 2025 22:41:37 +0200
+Subject: Revert "cgroup: Do not report unavailable v1 controllers in /proc/cgroups"
+Bug-Debian: https://bugs.debian.org/1108294
+Origin: https://sources.debian.org/patches/linux/6.12.43-1~bpo12+1/debian/revert-cgroup-do-not-report-unavailable-v1-controlle.patch/
+
+This reverts commit af000ce85293b8e608f696f0c6c280bc3a75887f, adapted
+for the 6.18 kernel where the proc_cgroupstats_show function has
+additional logic (proc_show_all, cgrp_v1_visible).
+
+Starting in version 11, OpenJDK supports both cgroups v1 and v2 APIs,
+but relies on /proc/cgroups (part of the v1 API) to detect which
+controllers are enabled. The VM detects and adjusts its behaviour for
+cgroups cpuset and memory limits. The GC will be configured to
+collect before hitting the memory limit.
+
+If it does not detect such limits, it may defer GC so long that it
+triggers OOM despite not needing all the allocated memory.
+
+The upstream change restricts /proc/cgroups to only show controllers
+that support the v1 API. With CONFIG_CPUSETS_V1 and CONFIG_MEMCG_V1
+disabled (upstream default), these controllers do not support the v1
+API and OpenJDK fails to detect them entirely, easily resulting in
+triggering OOM when running in a container.
+
+OpenJDK 25 has been fixed to detect cgroups v2 without depending on
+/proc/cgroups, but older versions (11-24) are affected.
+
+--- a/kernel/cgroup/cgroup-v1.c
++++ b/kernel/cgroup/cgroup-v1.c
+@@ -689,8 +689,6 @@ int proc_cgroupstats_show(struct seq_file *m, void *v)
+ 	for_each_subsys(ss, i) {
+ 		cgrp_v1_visible |= ss->root != &cgrp_dfl_root;
+
+-		if (!proc_show_all && cgroup1_subsys_absent(ss))
+-			continue;
+ 		seq_printf(m, "%s\t%d\t%d\t%d\n",
+ 			   ss->legacy_name, ss->root->hierarchy_id,
+ 			   atomic_read(&ss->root->nr_cgrps),
