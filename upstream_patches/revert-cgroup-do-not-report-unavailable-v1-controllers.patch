@@ -28,12 +28,13 @@ OpenJDK 25 has been fixed to detect cgroups v2 without depending on
 
 --- a/kernel/cgroup/cgroup-v1.c
 +++ b/kernel/cgroup/cgroup-v1.c
-@@ -689,8 +689,6 @@ int proc_cgroupstats_show(struct seq_file *m, void *v)
+@@ -689,9 +689,6 @@ int proc_cgroupstats_show(struct seq_file *m, void *v)
  	for_each_subsys(ss, i) {
  		cgrp_v1_visible |= ss->root != &cgrp_dfl_root;
 
 -		if (!proc_show_all && cgroup1_subsys_absent(ss))
 -			continue;
+-
  		seq_printf(m, "%s\t%d\t%d\t%d\n",
  			   ss->legacy_name, ss->root->hierarchy_id,
  			   atomic_read(&ss->root->nr_cgrps),
