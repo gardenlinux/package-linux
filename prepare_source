@@ -30,4 +30,4 @@ apply_patches fixes_debian
 import_upstream_patches
 # Unlike the normal suffix, this needs to stay to indicate the patch level that the kernel has with
 # respect to the FIPS patches.
-version_suffix=gl12~bp1877
+version_suffix=gl13~bp1877
