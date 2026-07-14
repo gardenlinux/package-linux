@@ -5,3 +5,4 @@
 0005-disable-xxhash64.patch
 CVE-2026-31688.patch
 CVE-2026-43009.patch
+revert-cgroup-do-not-report-unavailable-v1-controllers.patch
