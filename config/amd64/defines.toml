@@ -3,11 +3,13 @@ name = 'amd64'
 [flavour.build]
 config = [
  'amd64/config.mlx',
+ 'amd64/config.sci',
  'config.gardenlinux',
  'config.tdx',
  'config.nvidia',
  'config.harden',
- 'config.harden.metal'
+ 'config.harden.metal',
+ 'config.fips'
 ]
 [flavour.defs]
 is_default = true
@@ -25,7 +27,8 @@ config = [
  'config.gardenlinux',
  'amd64/config-cloud-amd64',
  'config.nvidia',
- 'config.harden'
+ 'config.harden',
+ 'config.fips'
 ]
 [flavour.description]
 hardware = 'x86-64 cloud'
