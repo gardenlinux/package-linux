@@ -6,11 +6,6 @@ related_topics:
   - /explanation/kernel.md
   - /how-to/kernel-builds.md
   - /reference/kernel-flavors.md
-migration_status: "done"
-migration_source: "00_introduction/kernel.md"
-migration_issue: "https://github.com/gardenlinux/gardenlinux/issues/4629"
-migration_stakeholder: "@tmang0ld, @yeoldegrove, @ByteOtter"
-migration_approved: false
 github_org: gardenlinux
 github_repo: package-linux
 github_source_path: docs/explanation/kernel.md
