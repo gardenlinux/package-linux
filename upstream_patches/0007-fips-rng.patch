@@ -454,9 +454,9 @@ index 72da96fdfb5d..0d18dcb7347d 100644
  EXPORT_SYMBOL_GPL(crypto_del_default_rng);
  #endif
  
-@@ -225,5 +245,102 @@ void crypto_unregister_rngs(struct rng_alg *algs, int count)
- }
- EXPORT_SYMBOL_GPL(crypto_unregister_rngs);
+@@ -237,5 +257,102 @@ void crypto_unregister_rngs(struct rng_alg *algs, int count)
+ 
+ module_exit(rng_exit);
  
 +static ssize_t crypto_devrandom_read_iter(struct iov_iter *iter, bool reseed)
 +{
