@@ -9,5 +9,7 @@ jobs:
     uses: gardenlinux/package-build/.github/workflows/build.yml@main
     with:
       release: ${{ github.ref == 'refs/heads/main' }}
+      build_dep: |
+        gardenlinux/package-zlib 1.3.dfsg+really1.3.2-3gl0+bp2150
       runs-on-amd64: ubuntu-latest-64core
       runs-on-arm64: ubuntu-latest-arm-64core
