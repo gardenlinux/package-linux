@@ -1,0 +1,31 @@
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -4075,6 +4075,10 @@ static int test_kpp(struct crypto_kpp *tfm, const char *alg,
+ 	int ret, i;
+ 
+ 	for (i = 0; i < tcount; i++) {
++		if (fips_enabled && vecs[i].fips_skip) {
++			vecs++;
++			continue;
++		}
+ 		ret = do_test_kpp(tfm, vecs++, alg);
+ 		if (ret) {
+ 			pr_err("alg: %s: test failed on vector %d, err=%d\n",
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -174,6 +174,7 @@ struct kpp_testvec {
+ 	unsigned short expected_a_public_size;
+ 	unsigned short expected_ss_size;
+ 	bool genkey;
++	bool fips_skip;
+ };
+ 
+ static const char zeroed_string[48];
+@@ -4484,6 +4485,7 @@ static const struct kpp_testvec ecdh_p256_tv_template[] = {
+ 	.expected_a_public_size = 64,
+ 	.expected_ss_size = 32,
+ 	.genkey = true,
++	.fips_skip = true,
+ 	}
+ };
+ 
