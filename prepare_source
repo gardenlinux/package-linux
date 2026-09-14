@@ -29,3 +29,4 @@ cp -r config "$dir/src/debian/"
 
 apply_patches fixes_debian
 import_upstream_patches
+version_suffix=gl0
