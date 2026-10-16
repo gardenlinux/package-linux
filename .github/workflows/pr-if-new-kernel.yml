@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        branch: ['main', 'maint-6.12']
+        branch: ['main', 'maint-6.12', 'rel-1877', 'rel-2150']
     permissions:
       pull-requests: write
       contents: write
