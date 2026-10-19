@@ -1,1 +1,2 @@
 series.patch
+update-security-perf-allow-further-restriction-of-perf_event_open.patch

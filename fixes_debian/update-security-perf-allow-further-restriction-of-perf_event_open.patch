@@ -1,0 +1,31 @@
+--- a/debian/patches/features/all/security-perf-allow-further-restriction-of-perf_event_open.patch	2026-10-19 09:20:44.221721316 +0000
++++ b/debian/patches/features/all/security-perf-allow-further-restriction-of-perf_event_open.patch	2026-10-19 09:35:13.096114308 +0000
+@@ -36,7 +36,7 @@
+  
+ --- a/kernel/events/core.c
+ +++ b/kernel/events/core.c
+-@@ -449,8 +449,13 @@ static struct kmem_cache *perf_event_cac
++@@ -462,8 +462,13 @@
+   *   0 - disallow raw tracepoint access for unpriv
+   *   1 - disallow cpu events for unpriv
+   *   2 - disallow kernel profiling for unpriv
+@@ -50,15 +50,15 @@
+  
+  /* Minimum for 512 kiB + 1 user control page */
+  int sysctl_perf_event_mlock __read_mostly = 512 + (PAGE_SIZE / 1024); /* 'free' kiB per user */
+-@@ -12681,6 +12686,9 @@ SYSCALL_DEFINE5(perf_event_open,
++@@ -12842,6 +12847,9 @@
+  	if (err)
+  		return err;
+  
+-+	if (perf_paranoid_any() && !capable(CAP_SYS_ADMIN))
+-+		return -EACCES;
+++ 	if (perf_paranoid_any() && !capable(CAP_SYS_ADMIN))
+++ 		return -EACCES;
+ +
+  	/* Do we allow access to perf_event_open(2) ? */
+- 	err = security_perf_event_open(&attr, PERF_SECURITY_OPEN);
++ 	err = security_perf_event_open(PERF_SECURITY_OPEN);
+  	if (err)
+ --- a/security/Kconfig
+ +++ b/security/Kconfig
