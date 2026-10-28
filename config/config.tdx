@@ -2,3 +2,11 @@
 
 # Using linux upstream TDX guest support
 CONFIG_INTEL_TDX_GUEST=y
+
+# ---- Intel TDX host configs
+
+# KVM host support for launching TDX confidential guests.
+# Built into vmlinux (bool); TDX code is compiled into the kvm_intel module.
+# Enable at runtime with kvm_intel.tdx=1 (see the _tdxhost image feature).
+CONFIG_INTEL_TDX_HOST=y
+CONFIG_KVM_INTEL_TDX=y
