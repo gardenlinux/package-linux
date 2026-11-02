@@ -41,6 +41,7 @@ jobs:
             # We have to trigger our own workflow run because github does not do that when the pr is created by automation
             # This also means that we don't have the nice UI integration of test runs, so we add a comment to the workflow url for tracing purposes
             gh workflow run "build.yml" --ref "update-kernel-${{ matrix.branch }}"
+            gh workflow run "docs-check.yml" --ref "update-kernel-${{ matrix.branch }}"
             echo wait a few seconds until the workflow has started
             sleep 5
             RUN_URL=$(gh run list --workflow=build.yml --limit=1 --branch=update-kernel-${{ matrix.branch }} --json=url --jq='.[0].url')
