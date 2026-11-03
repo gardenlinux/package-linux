@@ -10,7 +10,7 @@ import sys
 # Script to automate the process of selecting the latest patch version of linux
 
 # Update this when we base our kernel build on a newer lts branch
-current_lts = "6.18."
+current_lts = "7.3."
 
 def match_version(version, debian_version):
     if debian_version == version:
