@@ -15,6 +15,7 @@ jobs:
       pull-requests: write
       contents: write
       actions: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,6 +46,26 @@ jobs:
             sleep 5
             RUN_URL=$(gh run list --workflow=build.yml --limit=1 --branch=update-kernel-${{ matrix.branch }} --json=url --jq='.[0].url')
             gh pr comment $UPDATE_PR_LINK --body "CI workflow created: $RUN_URL"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: create tracking issue
+        run: |
+          if [[ '${{ steps.update.outputs.has-update }}' ]]; then
+            MILESTONE_TITLE=$(date -u +%Y-%m)
+            # Find the milestone for the current month, create it if it doesn't exist
+            MILESTONE_EXISTS=$(gh api repos/${{ github.repository }}/milestones \
+              --jq ".[] | select(.title == \"$MILESTONE_TITLE\") | .title")
+            if [[ -z "$MILESTONE_EXISTS" ]]; then
+              gh api repos/${{ github.repository }}/milestones \
+                --method POST \
+                --field title="$MILESTONE_TITLE"
+            fi
+            gh issue create \
+              --repo ${{ github.repository }} \
+              --title "Update kernel ${{ steps.update.outputs.has-update }}" \
+              --body "New upstream kernel version available. Automated PR: ${{ github.server_url }}/${{ github.repository }}/pulls?q=update-kernel-${{ matrix.branch }}" \
+              --milestone "$MILESTONE_TITLE"
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
