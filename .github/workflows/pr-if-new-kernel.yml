@@ -53,20 +53,19 @@ jobs:
         run: |
           if [[ '${{ steps.update.outputs.has-update }}' ]]; then
             MILESTONE_TITLE=$(date -u +%Y-%m)
-            # Find the milestone number for the current month, create it if it doesn't exist
-            MILESTONE_NUMBER=$(gh api repos/${{ github.repository }}/milestones \
-              --jq ".[] | select(.title == \"$MILESTONE_TITLE\") | .number")
-            if [[ -z "$MILESTONE_NUMBER" ]]; then
-              MILESTONE_NUMBER=$(gh api repos/${{ github.repository }}/milestones \
+            # Find the milestone for the current month, create it if it doesn't exist
+            MILESTONE_EXISTS=$(gh api repos/${{ github.repository }}/milestones \
+              --jq ".[] | select(.title == \"$MILESTONE_TITLE\") | .title")
+            if [[ -z "$MILESTONE_EXISTS" ]]; then
+              gh api repos/${{ github.repository }}/milestones \
                 --method POST \
-                --field title="$MILESTONE_TITLE" \
-                --jq '.number')
+                --field title="$MILESTONE_TITLE"
             fi
             gh issue create \
               --repo ${{ github.repository }} \
               --title "Update kernel ${{ steps.update.outputs.has-update }}" \
               --body "New upstream kernel version available. Automated PR: ${{ github.server_url }}/${{ github.repository }}/pulls?q=update-kernel-${{ matrix.branch }}" \
-              --milestone "$MILESTONE_NUMBER"
+              --milestone "$MILESTONE_TITLE"
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
