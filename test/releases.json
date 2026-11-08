@@ -1,0 +1,187 @@
+{
+    "releases": [
+        {
+            "moniker": "mainline",
+            "version": "7.4-rc1",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793568391,
+                "isodate": "2026-11-01"
+            },
+            "source": "https://git.kernel.org/torvalds/t/linux-7.4-rc1.tar.gz",
+            "pgp": null,
+            "patch": {
+                "full": "https://git.kernel.org/torvalds/p/v7.4-rc1/v7.3",
+                "incremental": null
+            },
+            "changelog": null,
+            "gitweb": "https://git.kernel.org/torvalds/h/v7.4-rc1",
+            "diffview": "https://git.kernel.org/torvalds/ds/v7.4-rc1/v7.3"
+        },
+        {
+            "moniker": "stable",
+            "version": "7.3.1",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793362198,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.3.1.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.3.1.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v7.x/patch-7.3.1.xz",
+                "incremental": null
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v7.x/ChangeLog-7.3.1",
+            "gitweb": "https://git.kernel.org/stable/h/v7.3.1",
+            "diffview": "https://git.kernel.org/stable/ds/v7.3.1/v7.3"
+        },
+        {
+            "moniker": "stable",
+            "version": "7.2.15",
+            "iseol": true,
+            "released": {
+                "timestamp": 1793537096,
+                "isodate": "2026-11-01"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.15.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.2.15.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v7.x/patch-7.2.15.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v7.x/incr/patch-7.2.14-15.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v7.x/ChangeLog-7.2.15",
+            "gitweb": "https://git.kernel.org/stable/h/v7.2.15",
+            "diffview": "https://git.kernel.org/stable/ds/v7.2.15/v7.2.14"
+        },
+        {
+            "moniker": "longterm",
+            "version": "6.18.60",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793362006,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.60.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.60.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.18.60.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.18.59-60.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.18.60",
+            "gitweb": "https://git.kernel.org/stable/h/v6.18.60",
+            "diffview": "https://git.kernel.org/stable/ds/v6.18.60/v6.18.59"
+        },
+        {
+            "moniker": "longterm",
+            "version": "6.12.115",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793361931,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.115.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.115.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.12.115.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.12.114-115.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.12.115",
+            "gitweb": "https://git.kernel.org/stable/h/v6.12.115",
+            "diffview": "https://git.kernel.org/stable/ds/v6.12.115/v6.12.114"
+        },
+        {
+            "moniker": "longterm",
+            "version": "6.6.161",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793361874,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.161.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.6.161.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.6.161.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.6.160-161.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.6.161",
+            "gitweb": "https://git.kernel.org/stable/h/v6.6.161",
+            "diffview": "https://git.kernel.org/stable/ds/v6.6.161/v6.6.160"
+        },
+        {
+            "moniker": "longterm",
+            "version": "6.1.191",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793361657,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.191.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.1.191.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v6.x/patch-6.1.191.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.1.190-191.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v6.x/ChangeLog-6.1.191",
+            "gitweb": "https://git.kernel.org/stable/h/v6.1.191",
+            "diffview": "https://git.kernel.org/stable/ds/v6.1.191/v6.1.190"
+        },
+        {
+            "moniker": "longterm",
+            "version": "5.15.224",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793361469,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.224.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.224.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.15.224.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v5.x/incr/patch-5.15.223-224.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.15.224",
+            "gitweb": "https://git.kernel.org/stable/h/v5.15.224",
+            "diffview": "https://git.kernel.org/stable/ds/v5.15.224/v5.15.223"
+        },
+        {
+            "moniker": "longterm",
+            "version": "5.10.273",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793361394,
+                "isodate": "2026-10-30"
+            },
+            "source": "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.273.tar.xz",
+            "pgp": "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.10.273.tar.sign",
+            "patch": {
+                "full": "https://cdn.kernel.org/pub/linux/kernel/v5.x/patch-5.10.273.xz",
+                "incremental": "https://cdn.kernel.org/pub/linux/kernel/v5.x/incr/patch-5.10.272-273.xz"
+            },
+            "changelog": "https://cdn.kernel.org/pub/linux/kernel/v5.x/ChangeLog-5.10.273",
+            "gitweb": "https://git.kernel.org/stable/h/v5.10.273",
+            "diffview": "https://git.kernel.org/stable/ds/v5.10.273/v5.10.272"
+        },
+        {
+            "moniker": "linux-next",
+            "version": "next-20261103",
+            "iseol": false,
+            "released": {
+                "timestamp": 1793719371,
+                "isodate": "2026-11-03"
+            },
+            "source": null,
+            "pgp": null,
+            "patch": {
+                "full": null,
+                "incremental": null
+            },
+            "changelog": null,
+            "gitweb": "https://git.kernel.org/next/linux-next/h/next-20261103",
+            "diffview": null
+        }
+    ],
+    "latest_stable": {
+        "version": "7.3.1"
+    }
+}
