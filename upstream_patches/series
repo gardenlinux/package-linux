@@ -6,4 +6,3 @@
 0006-gve-fix-SW-coalescing-when-hw-GRO-is-used.patch
 CVE-2026-31688.patch
 revert-cgroup-do-not-report-unavailable-v1-controllers.patch
-0007-x86-mm-pat-skip-RWX-verification.patch
