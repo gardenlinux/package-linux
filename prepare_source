@@ -1,11 +1,11 @@
 pkg=linux
 
-version_orig=6.18.63
-version="$version_orig-1"
+version_orig=7.3.4
+version=7.3.4-1
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.18.5-1"
+	debian_ref="debian/${version/\~/_}"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
@@ -23,6 +23,9 @@ version="$version_orig-1"
 	auto_decompress ../*.orig.tar.* | tee "$dir/orig.tar" | tar --extract --strip-components 1 --directory "$dir/src"
 	cp -r debian "$dir/src/"
 )
+
+# strip the "~*" part from the version for further processing
+version="${version%\~*}"
 
 rm -rf "$dir/src/debian/config"
 cp -r config "$dir/src/debian/"
