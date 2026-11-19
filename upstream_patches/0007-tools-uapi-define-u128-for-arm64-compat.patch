@@ -1,0 +1,44 @@
+From: Garden Linux Maintainers <maintainers@gardenlinux.io>
+Date: Wed, 19 Nov 2026 13:00:00 +0000
+Subject: tools headers UAPI: define __u128/__s128 for arm64 __u128 compat
+
+Debian stable (Trixie) ships linux-libc-dev from kernel 7.x which changed
+the arm64 UAPI headers (asm/sigcontext.h, asm/ptrace.h) to use __u128
+instead of __uint128_t (upstream commit landed 2026-07-21). The matching
+__u128/__s128 typedefs were added to include/uapi/linux/types.h in the
+same kernel 7.x series.
+
+When tools/bpf/resolve_btfids builds libbpf as part of the in-kernel BTF
+generation on a native arm64 host, the preprocessor pulls in the system
+header /usr/lib/linux/uapi/arm64/asm/sigcontext.h (7.x, uses __u128) while
+resolving <linux/types.h> against the in-tree tools/include/uapi copy
+(6.18, lacks the __u128 typedef). The build then fails with:
+
+  /usr/lib/linux/uapi/arm64/asm/sigcontext.h:81:9: error: unknown type name '__u128'
+  /usr/lib/linux/uapi/arm64/asm/ptrace.h:96:9: error: unknown type name '__u128'
+
+Backport the __s128/__u128 typedefs into the tools UAPI types header so the
+typedef the 7.x system headers reference is available during the libbpf
+build. This mirrors the upstream kernel 7.x definition in
+include/uapi/linux/types.h.
+
+Signed-off-by: Garden Linux Maintainers <maintainers@gardenlinux.io>
+---
+ tools/include/uapi/linux/types.h | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/tools/include/uapi/linux/types.h b/tools/include/uapi/linux/types.h
+--- a/tools/include/uapi/linux/types.h
++++ b/tools/include/uapi/linux/types.h
+@@ -16,6 +16,11 @@ typedef __u64 __bitwise __be64;
+ typedef __u16 __bitwise __sum16;
+ typedef __u32 __bitwise __wsum;
+
++#ifdef __SIZEOF_INT128__
++typedef __signed__ __int128 __s128 __attribute__((aligned(16)));
++typedef unsigned __int128 __u128 __attribute__((aligned(16)));
++#endif
++
+ #define __aligned_u64 __u64 __attribute__((aligned(8)))
+ #define __aligned_be64 __be64 __attribute__((aligned(8)))
+ #define __aligned_le64 __le64 __attribute__((aligned(8)))
