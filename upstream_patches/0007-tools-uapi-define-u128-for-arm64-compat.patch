@@ -1,0 +1,66 @@
+From: Garden Linux Maintainers <maintainers@gardenlinux.io>
+Date: Wed, 19 Nov 2026 14:00:00 +0000
+Subject: tools headers: define __u128/__s128 for arm64 __u128 compat
+
+Debian stable (Trixie) ships linux-libc-dev from kernel 7.x which changed
+the arm64 UAPI headers (asm/sigcontext.h, asm/ptrace.h) to use __u128
+instead of __uint128_t, and added the matching __u128/__s128 typedefs to
+/usr/include/linux/types.h.
+
+When tools/bpf/resolve_btfids builds libbpf as part of the in-kernel BTF
+generation on a native arm64 host, the preprocessor pulls in the system
+header /usr/lib/linux/uapi/arm64/asm/sigcontext.h (7.x, uses __u128). That
+header does #include <linux/types.h>, but the build runs with
+-I tools/include ahead of /usr/include, so <linux/types.h> resolves to the
+in-tree tools/include/linux/types.h (6.12), which lacks the __u128 typedef.
+The build then fails with:
+
+  /usr/lib/linux/uapi/arm64/asm/sigcontext.h:81:9: error: unknown type name '__u128'
+  /usr/lib/linux/uapi/arm64/asm/ptrace.h:96:9: error: unknown type name '__u128'
+
+Define the __s128/__u128 typedefs in both tools linux/types.h shims (the
+non-uapi one is resolved by the glibc signal.h -> asm/sigcontext.h chain;
+the uapi one by the libbpf.c -> bpf_perf_event.h -> asm/ptrace.h chain) so
+the typedef the 7.x system headers reference is available via either
+include root. Guarded by __SIZEOF_INT128__ so it only applies on targets
+with 128-bit integer support.
+
+Backport of upstream commit 10a47fb67340bca274276faf855d7d460afd9a7a
+("tools: linux/types.h: Add 128-bit integer types for arm64 UAPI structures")
+by Will Deacon, extended to also patch tools/include/uapi/linux/types.h
+to cover the libbpf include chain.
+
+Signed-off-by: Garden Linux Maintainers <maintainers@gardenlinux.io>
+---
+ tools/include/linux/types.h      | 5 +++++
+ tools/include/uapi/linux/types.h | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/tools/include/linux/types.h b/tools/include/linux/types.h
+--- a/tools/include/linux/types.h
++++ b/tools/include/linux/types.h
+@@ -42,6 +42,11 @@ typedef __u8  u8;
+ typedef __s8  s8;
+ 
++#ifdef __SIZEOF_INT128__
++typedef __signed__ __int128 __s128 __attribute__((aligned(16)));
++typedef unsigned __int128 __u128 __attribute__((aligned(16)));
++#endif
++
+ #ifdef __CHECKER__
+ #define __bitwise	__attribute__((bitwise))
+ #else
+diff --git a/tools/include/uapi/linux/types.h b/tools/include/uapi/linux/types.h
+--- a/tools/include/uapi/linux/types.h
++++ b/tools/include/uapi/linux/types.h
+@@ -16,6 +16,11 @@ typedef __u16 __bitwise __sum16;
+ typedef __u32 __bitwise __wsum;
+ 
++#ifdef __SIZEOF_INT128__
++typedef __signed__ __int128 __s128 __attribute__((aligned(16)));
++typedef unsigned __int128 __u128 __attribute__((aligned(16)));
++#endif
++
+ #define __aligned_u64 __u64 __attribute__((aligned(8)))
+ #define __aligned_be64 __be64 __attribute__((aligned(8)))
+ #define __aligned_le64 __le64 __attribute__((aligned(8)))
