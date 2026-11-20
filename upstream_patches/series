@@ -6,3 +6,4 @@
 0006-gve-fix-SW-coalescing-when-hw-GRO-is-used.patch
 CVE-2026-31688.patch
 revert-cgroup-do-not-report-unavailable-v1-controllers.patch
+0007-tools-uapi-define-u128-for-arm64-compat.patch
