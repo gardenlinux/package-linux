@@ -39,7 +39,8 @@ Signed-off-by: Garden Linux Maintainers <maintainers@gardenlinux.io>
 diff --git a/tools/include/linux/types.h b/tools/include/linux/types.h
 --- a/tools/include/linux/types.h
 +++ b/tools/include/linux/types.h
-@@ -42,5 +42,10 @@ typedef __u8  u8;
+@@ -42,6 +42,11 @@
+ typedef __u8  u8;
  typedef __s8  s8;
  
 +#ifdef __SIZEOF_INT128__
@@ -48,10 +49,13 @@ diff --git a/tools/include/linux/types.h b/tools/include/linux/types.h
 +#endif
 +
  #ifdef __CHECKER__
+ #define __bitwise	__attribute__((bitwise))
+ #else
 diff --git a/tools/include/uapi/linux/types.h b/tools/include/uapi/linux/types.h
 --- a/tools/include/uapi/linux/types.h
 +++ b/tools/include/uapi/linux/types.h
-@@ -16,5 +16,10 @@ typedef __u16 __bitwise __sum16;
+@@ -16,6 +16,11 @@
+ typedef __u16 __bitwise __sum16;
  typedef __u32 __bitwise __wsum;
  
 +#ifdef __SIZEOF_INT128__
@@ -60,3 +64,5 @@ diff --git a/tools/include/uapi/linux/types.h b/tools/include/uapi/linux/types.h
 +#endif
 +
  #define __aligned_u64 __u64 __attribute__((aligned(8)))
+ #define __aligned_be64 __be64 __attribute__((aligned(8)))
+ #define __aligned_le64 __le64 __attribute__((aligned(8)))
