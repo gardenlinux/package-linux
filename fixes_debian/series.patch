@@ -1,5 +1,5 @@
 diff --git a/debian/patches/series b/debian/patches/series
-index eab5b5891c..9fa7b11185 100644
+index eab5b5891c..39b421d16e 100644
 --- a/debian/patches/series
 +++ b/debian/patches/series
 @@ -63,8 +63,6 @@ bugfix/x86/perf-tools-fix-unwind-build-on-i386.patch
@@ -11,12 +11,14 @@ index eab5b5891c..9fa7b11185 100644
  
  # Compatibility kluge for old OpenJDK
  debian/revert-cgroup-do-not-report-unavailable-v1-controlle.patch
-@@ -81,8 +79,6 @@ bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
+@@ -81,10 +79,7 @@ bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
  # Miscellaneous features
  
  # Lockdown missing pieces
 -features/all/lockdown/efi-add-an-efi_secure_boot-flag-to-indicate-secure-b.patch
 -features/all/lockdown/efi-lock-down-the-kernel-if-booted-in-secure-boot-mo.patch
  features/all/lockdown/mtd-disable-slram-and-phram-when-locked-down.patch
- features/all/lockdown/arm64-add-kernel-config-option-to-lock-down-when.patch
+-features/all/lockdown/arm64-add-kernel-config-option-to-lock-down-when.patch
  
+ # Improve integrity platform keyring for kernel modules verification
+ features/all/db-mok-keyring/0003-MODSIGN-checking-the-blacklisted-hash-before-loading-a-kernel-module.patch
