@@ -1,10 +1,10 @@
 pkg=linux
-version_orig=6.12.116
+version_orig=6.12.119
 version="$version_orig-1"
 
 (
 	debian_repo=https://salsa.debian.org/kernel-team/linux.git
-	debian_ref="debian/6.12.43-1"
+	debian_ref="debian/6.12.118-1"
 
 	tmp_dir="$(mktemp -d)"
 	trap 'cd / && rm -rf "$tmp_dir"' EXIT
@@ -30,4 +30,4 @@ apply_patches fixes_debian
 import_upstream_patches
 # Unlike the normal suffix, this needs to stay to indicate the patch level that the kernel has with
 # respect to the FIPS patches.
-version_suffix=gl14~bp1877
+version_suffix=gl15~bp1877

@@ -1,12 +1,22 @@
---- a/debian/patches/series	2025-09-10 12:02:09.721924979 +0000
-+++ b/debian/patches/series	2025-09-10 14:50:59.976526194 +0000
-@@ -75,10 +75,6 @@
- bugfix/all/disable-some-marvell-phys.patch
- bugfix/all/fs-add-module_softdep-declarations-for-hard-coded-cr.patch
- bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
--bugfix/all/ext4-don-t-try-to-clear-the-orphan_present-feature-b.patch
--bugfix/all/proc-fix-missing-pde_set_flags-for-net-proc-files.patch
--bugfix/all/alloc_fdtable-change-calling-conventions.patch
--bugfix/all/net-ipv4-fix-regression-in-local-broadcast-routes.patch
-
+diff --git a/debian/patches/series b/debian/patches/series
+index eab5b5891c..9fa7b11185 100644
+--- a/debian/patches/series
++++ b/debian/patches/series
+@@ -63,8 +63,6 @@ bugfix/x86/perf-tools-fix-unwind-build-on-i386.patch
+ bugfix/arm/arm-mm-export-__sync_icache_dcache-for-xen-privcmd.patch
+ bugfix/powerpc/powerpc-boot-fix-missing-crc32poly.h-when-building-with-kernel_xz.patch
+ bugfix/arm64/arm64-acpi-Add-fixup-for-HPE-m400-quirks.patch
+-bugfix/x86/Revert-x86-mm-pat-Use-pr_warn-for-early-W-X-warnings.patch
+-bugfix/x86/Revert-x86-mm-pat-Fix-effective-RW-computation-in-lo.patch
+ 
+ # Compatibility kluge for old OpenJDK
+ debian/revert-cgroup-do-not-report-unavailable-v1-controlle.patch
+@@ -81,8 +79,6 @@ bugfix/all/documentation-use-relative-source-paths-in-abi-documentation.patch
  # Miscellaneous features
+ 
+ # Lockdown missing pieces
+-features/all/lockdown/efi-add-an-efi_secure_boot-flag-to-indicate-secure-b.patch
+-features/all/lockdown/efi-lock-down-the-kernel-if-booted-in-secure-boot-mo.patch
+ features/all/lockdown/mtd-disable-slram-and-phram-when-locked-down.patch
+ features/all/lockdown/arm64-add-kernel-config-option-to-lock-down-when.patch
+ 
