@@ -1,0 +1,21 @@
+--- a/debian/patches/debian/tools-perf-install-python-bindings.patch
++++ b/debian/patches/debian/tools-perf-install-python-bindings.patch
+@@ -12,15 +12,12 @@
+ index 80522bcfafe0..b011c7aae742 100644
+ --- a/tools/perf/Makefile.perf
+ +++ b/tools/perf/Makefile.perf
+-@@ -1026,7 +1026,7 @@ install-bin: install-tools install-tests install-traceevent-plugins
++@@ -1174,7 +1174,7 @@
+  install: install-bin try-install-man
+  
+  install-python_ext:
+--	$(PYTHON_WORD) util/setup.py --quiet install --root='/$(DESTDIR_SQ)'
+-+	$(PYTHON_WORD) util/setup.py --quiet install --root='/$(DESTDIR_SQ)' --install-layout=deb
++-	$(PYTHON_WORD) util/setup.py $(python_setup_quiet) install --root='/$(DESTDIR_SQ)'
+++	$(PYTHON_WORD) util/setup.py $(python_setup_quiet) install --root='/$(DESTDIR_SQ)' --install-layout=deb
+  
+  # 'make install-doc' should call 'make -C Documentation install'
+  $(INSTALL_DOC_TARGETS):
+--- 
+-2.30.2
+-
