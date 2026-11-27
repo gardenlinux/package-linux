@@ -34,6 +34,22 @@ config = [
 hardware = 'x86-64 cloud'
 hardware_long = 'cloud platforms including Amazon EC2, Microsoft Azure, and Google Compute Engine'
 
+[[flavour]]
+name = 'bsi-amd64'
+[flavour.build]
+config = [
+ 'amd64/config.mlx',
+ 'amd64/config.sci',
+ 'config.gardenlinux',
+ 'config.tdx',
+ 'config.nvidia',
+ 'config.fips',
+ 'amd64/config.bsi'
+]
+[flavour.description]
+hardware = 'x86-64 bsi'
+hardware_long = 'custom kernel for SCI/BSI'
+
 [[featureset]]
 name = 'none'
 
